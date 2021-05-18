@@ -10,7 +10,6 @@ class Produto
         "Nome: #{@nome}| Quantidade: #{@quantidade}| Validade: #{validade}| Preço: #{@preco}"
     end
 end 
-
 arroz = Produto.new("arroz", "1kg", "2 meses", 15.00)
 class Mercado
     def initialize
@@ -28,6 +27,7 @@ end
 
 markt = Mercado.new
 markt.add_food_to_list(arroz)
+
 puts markt.mercado
 
  
