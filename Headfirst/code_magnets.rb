@@ -8,7 +8,8 @@ class Blender
     end 
 
 end 
-
+a = getshe
+puts "hello"
 blender = Blender.new
 blender.close_lid
 blender.blend("high")
