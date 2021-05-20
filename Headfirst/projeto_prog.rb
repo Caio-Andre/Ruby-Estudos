@@ -1,18 +1,18 @@
 class Livro
 
-    attr_accessor :titulo, :autor, :categoria, :paginas, :preco
+    attr_reader :titulo, :autor, :categoria, :paginas, :preco
   
     def initialize(genero, titulo, autor, paginas, preco)
       @genero, @titulo, @autor, @paginas, @preco = genero, titulo, autor, paginas, preco
     end
   
     def ==(other)
-      self.titulo == other.titulo && self.autor == other.autor && self.genero == other.genero && self.paginas == other.paginas && self.preco == other.preco
+      self.titulo == other.titulo && self.autor == other.autor && self.genero == other.genero
     end
   
   
     def to_s
-      "Gênero: #{@genero}; Titulo: #{@titulo}; Autor: #{@autor}; Paginas: #{@paginas}; Preco: #{@preco}"
+      "Titulo: #{@titulo};/nAutor: #{@autor};/nGênero: #{@genero};/nNúmero de páginas: #{@paginas};/nPreço: #{@preco}"
     end
   
   end
