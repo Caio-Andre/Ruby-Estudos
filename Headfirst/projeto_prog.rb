@@ -1,6 +1,6 @@
 class Livro
 
-    attr_reader :titulo, :autor, :categoria, :paginas, :preco
+    attr_reader :genero, :titulo, :autor, :paginas, :preco
   
     def initialize(genero, titulo, autor, paginas, preco)
       @genero, @titulo, @autor, @paginas, @preco = genero, titulo, autor, paginas, preco
@@ -45,4 +45,12 @@ class Estante
     end
   end
 end
+livro_1 = Livro.new("Acao","Inferno","eu",5,10)
+estante_1 = Estante.new
 
+File.open("books.txt", "a") do |file|
+  file.write("\nGenero: #{livro_1.genero} Titulo:#{livro_1.titulo}")
+end 
+
+list_of_books = File.new("books.txt").readlines
+puts 
