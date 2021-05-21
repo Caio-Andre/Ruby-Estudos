@@ -46,6 +46,7 @@ def carregar_livros
   return estante
 end
 
+#Interface Do APP
 app = true 
 while app do
   puts "\033[1;34m           TACACA STORE\033[m"
