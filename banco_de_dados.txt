@@ -1,0 +1,3 @@
+ruby "/home/henriquesilva/Documents/GitHub/Ruby-Estudos/Headfirst/app.rb"|ruby "/home/henriquesilva/Documents/GitHub/Ruby-Estudos/Headfirst/app.rb"|ruby "/home/henriquesilva/Documents/GitHub/Ruby-Estudos/Headfirst/app.rb"|0|0.0
+romance|Inferno|Dan Brown|543|45.99
+23|Romance|Inferno|Dan|543|43.99

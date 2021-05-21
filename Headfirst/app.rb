@@ -2,9 +2,10 @@ require_relative 'class_livro'
 require_relative 'class_estante'
 
 # ADICIONA NOVOS LIVROS NO BANCO
+
 def adicionar_livros_banco_de_dados
   while true
-    print "Por favor, informe o gênero do livro:"
+    print "Por favor, informe o id do livro:"
     id = gets.chomp.to_i
     print "Por favor, informe o gênero do livro:"
     genero = gets.chomp
@@ -17,13 +18,11 @@ def adicionar_livros_banco_de_dados
     print "Por favor, informe o preço do livro:"
     preco = gets.chomp.to_f
 
-    if genero.class == String && titulo.class == String
-
     File.open("banco_de_dados.txt", "a") do |arquivo|
-      arquivo.puts("#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
+      arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
     end
     
-    puts "Livro adicionado com sucesso"
+    puts "Livro adicionado com sucesso!"
     puts "Você deseja adicionar mais livros?"
     puts "Se você não deseja adicionar mais livros, digite 'N'."
     if gets.chomp.upcase == 'N'
@@ -45,7 +44,8 @@ def carregar_livros
   end 
   return estante
 end
-puts "#{carregar_livros}"
+
+adicionar_livros_banco_de_dados
 
 
 
