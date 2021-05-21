@@ -1,0 +1,1 @@
+books.each {|l| puts l}
