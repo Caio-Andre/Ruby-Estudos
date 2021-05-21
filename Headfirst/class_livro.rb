@@ -1,8 +1,8 @@
 class Livro
 
-    attr_reader :genero, :titulo, :autor, :paginas, :preco
+    attr_reader :id, :genero, :titulo, :autor, :paginas, :preco
   
-    def initialize(genero, titulo, autor, paginas, preco)
+    def initialize(id, genero, titulo, autor, paginas, preco)
       @genero, @titulo, @autor, @paginas, @preco = genero, titulo, autor, paginas, preco
     end
   
@@ -12,7 +12,7 @@ class Livro
   
   
     def to_s
-      "Gênero:#{@genero}|Titulo:#{@titulo}|Autor:#{@autor}|Número de páginas:#{@paginas}|Preço:#{@preco}"
+      "[\033[1;37ID:#{@id}] \033[1;33mGênero:#{@genero}|\033[1;33Titulo:#{@titulo}|\033[1;33Autor:#{@autor}|\033[1;32Número de páginas:#{@paginas}|\033[1;31Preço:#{@preco}"
     end
   
 end
