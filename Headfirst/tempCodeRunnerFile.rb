@@ -1,1 +1,1 @@
-books.each {|l| puts l}
+genero, titulo, autor, paginas, precos
