@@ -17,7 +17,7 @@ def adicionar_livros_banco_de_dados
     print "Por favor, informe o preço do livro:"
     preco = gets.chomp.to_f
 
-    if genero.class == String && titulo.class == String
+    
 
     File.open("banco_de_dados.txt", "a") do |arquivo|
       arquivo.puts("#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
@@ -45,7 +45,16 @@ def carregar_livros
   end 
   return estante
 end
-puts "#{carregar_livros}"
+
+app = true 
+while app do
+  puts "\033[1;34m           TACACA STORE\033[m"
+  print "
+[1] CLIENTE
+[2] FUNCIONARIO VATAPA"
+  decision = gets.chomp.to_i
+end 
+
 
 
 
