@@ -2,6 +2,7 @@ require_relative 'class_livro'
 require_relative 'class_estante'
 
 # ADICIONA NOVOS LIVROS NO BANCO
+
 def adicionar_livros_banco_de_dados
   while true
     print "Por favor, informe o id do livro:"
@@ -17,13 +18,11 @@ def adicionar_livros_banco_de_dados
     print "Por favor, informe o preço do livro:"
     preco = gets.chomp.to_f
 
-    
-
     File.open("banco_de_dados.txt", "a") do |arquivo|
-      arquivo.puts("#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
+      arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
     end
     
-    puts "Livro adicionado com sucesso"
+    puts "Livro adicionado com sucesso!"
     puts "Você deseja adicionar mais livros?"
     puts "Se você não deseja adicionar mais livros, digite 'N'."
     if gets.chomp.upcase == 'N'
@@ -46,25 +45,7 @@ def carregar_livros
   return estante
 end
 
-
-#Interface Do APP
-app = true 
-while app do
-  puts "\033[1;34m           TACACA STORE\033[m"
-  print "
-[1] CLIENTE
-[2] FUNCIONARIO VATAPA
-SELECIONE UMA OPÇÃO:"
-  decision = gets.chomp.to_i
-  
-  if decision == 1 
-    carregar_livros
-
-  elsif decision == 2
-    adicionar_livros_banco_de_dados
-  end 
-end 
-
+adicionar_livros_banco_de_dados
 
 
 
