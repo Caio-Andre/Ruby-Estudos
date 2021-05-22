@@ -4,7 +4,7 @@ require_relative 'class_estante'
 # ADICIONA NOVOS LIVROS NO BANCO
 def adicionar_livros_banco_de_dados
   while true
-    print "Por favor, informe o gênero do livro:"
+    print "Por favor, informe o id do livro:"
     id = gets.chomp.to_i
     print "Por favor, informe o gênero do livro:"
     genero = gets.chomp
@@ -46,14 +46,23 @@ def carregar_livros
   return estante
 end
 
+
 #Interface Do APP
 app = true 
 while app do
   puts "\033[1;34m           TACACA STORE\033[m"
   print "
 [1] CLIENTE
-[2] FUNCIONARIO VATAPA"
+[2] FUNCIONARIO VATAPA
+SELECIONE UMA OPÇÃO:"
   decision = gets.chomp.to_i
+  
+  if decision == 1 
+    carregar_livros
+
+  elsif decision == 2
+    adicionar_livros_banco_de_dados
+  end 
 end 
 
 
