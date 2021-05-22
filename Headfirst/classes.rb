@@ -20,30 +20,20 @@ end
 
 class Estante
   attr_accessor :livros
-  def initialize
-      @livros = []
+  def initialize (livros)
+      @livros = livros
   end
 
-  def filtrar 
-    
-  end
-
-  def mostrar_livros_guardados
-      puts "\n"
-      @livros.each_key {|categoria|
-        for livro in @livros[categoria]
+  def filtrar (filtro)
+    if   
+      for livro in livros
+        if livro.titulo == filtro
           puts livro
-        end
-      }
-  end
-
-  def mostrar_livros_da_categoria categoria
-    if @livros.has_key?categoria
-      for livro in @livros[categoria]
-        puts livro
+          return livro
+        end 
       end
-    else
-      puts "Esta categoria não possui livros nesta biblioteca"
-    end
-  end
+      puts "LIVRO NÃO ENCONTRADO!" 
+      return  
+    end 
+  end 
 end

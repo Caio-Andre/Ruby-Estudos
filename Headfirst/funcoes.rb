@@ -1,15 +1,14 @@
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 
-def carregar_livros (estante)
-  while true do
-    File.open("banco_de_dados.txt") do |file|
-      file.each do |line| 
-        id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
-        estante.livros << Livro.new(id, genero, titulo, autor, paginas.to_i, precos.to_f)
-      end 
+def carregar_livros
+  livros = []
+  File.open("banco_de_dados.txt") do |file|
+    file.each do |line| 
+      id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
+      livros << Livro.new(id, genero, titulo, autor, paginas.to_i, precos.to_f)
     end 
-    return estante
-  end 
+  end
+  return livros
 end
 
 
@@ -42,3 +41,6 @@ def adicionar_livros_banco_de_dados
     end
   end
 end 
+
+
+def 

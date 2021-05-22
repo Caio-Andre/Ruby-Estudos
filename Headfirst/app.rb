@@ -3,7 +3,7 @@ require_relative 'funcoes'
 require_relative 'interface_cliente'
 
 # CRIA A ESTANTE DE LIVROS
-estante = Estante.new
+estante = Estante.new(carregar_livros)
 
 
 app = true 
@@ -16,7 +16,7 @@ while app do
 SELCIONE UMA OPÇÂO:"
   decision = gets.chomp.to_i()
   if decision == 1
-    carregar_livros(estante)
+    
     puts estante.livros
   elsif decision == 2
     adicionar_livros_banco_de_dados
