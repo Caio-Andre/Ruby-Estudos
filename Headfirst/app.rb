@@ -51,7 +51,7 @@ end
 
 app = true 
 while app do
-  puts "\nVATAPÀ STORE"
+  puts "\nVATAPÁ STORE"
   print"
 [1] CLIENTE
 [2] FUNCIONÀRIO VATAPÀ
