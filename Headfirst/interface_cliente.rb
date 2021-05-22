@@ -1,3 +1,5 @@
+require "classes"
+
 def abrir_interface_cliente
     puts "\nVATAPÁ STORE"
     puts "Bem Vindo à maior loja de livros do Norte!"
@@ -18,15 +20,17 @@ OPÇÃO:"
         end 
 
         if decisão_cliente == 1 
-            print "INFORME O TITULO:"
+            print "INFORME O TÍTULO:"
             titulo_escolhido_cliente = gets.chomp
             livro_desejado = estante.filtrar(titulo_escolhido_cliente)
-            print "DESEJA ADICIONAR O LIVRO NO CARRINHO [S] [N]: "
-            if gets.chomp.upcase == "S"
-                carrinho.produtos << livro_desejado 
-                carrinho.mostrar
-                next
-            end 
+            if livro_desejado.class == Livro
+                print "DESEJA ADICIONAR O LIVRO NO CARRINHO [S] [N]: "
+                if gets.chomp.upcase == "S"
+                    carrinho.produtos << livro_desejado 
+                    carrinho.mostrar
+                    next
+                end 
+            end
         elsif decisão_cliente == 2
             estante.filtrar()
         elsif decisão_cliente == 3
@@ -35,14 +39,13 @@ OPÇÃO:"
             estante.filtrar()
         else
 
-        end 
+        end
 
-
-
-
-
-
-
+        # Essa parte vai servir para finlizar as compras se o usuário quiser 
+        print "VOCẼ AINDA DESEJA FINALIZAR SUAS COMPRAS"
+        if gets.chomp.upcase == "S"
+            break
+        end
     end 
 end 
 

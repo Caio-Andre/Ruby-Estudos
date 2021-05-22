@@ -24,8 +24,9 @@ class Estante
       @livros = livros
   end
 
-  def filtrar (filtro)
-    if   
+  # Essa função escolhe os livros da loja por meio do filtro passado
+  def filtrar(filtro)
+    if filtro == titulo
       for livro in livros
         if livro.titulo == filtro
           puts livro
@@ -33,7 +34,9 @@ class Estante
         end 
       end
       puts "LIVRO NÃO ENCONTRADO!" 
-      return  
+      return
+    # As filtragens por meio de outros métodos serão feitas por aqui
+    elsif  
     end 
   end 
 end
