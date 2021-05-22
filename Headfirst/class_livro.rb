@@ -12,7 +12,7 @@ class Livro
   
   
     def to_s
-      "[\033[1;37ID:#{@id}] \033[1;33mGênero:#{@genero}|\033[1;33Titulo:#{@titulo}|\033[1;33Autor:#{@autor}|\033[1;32Número de páginas:#{@paginas}|\033[1;31Preço:#{@preco}"
+      "\n[\033[1;37mID:#{@id}] \033[1;33mGênero:#{@genero}|\033[1;33mTitulo:#{@titulo}|\033[1;33mAutor:#{@autor}|\033[1;32mNúmero de páginas:#{@paginas}|\033[1;31mPreço:#{@preco}\033[m"
     end
   
 end

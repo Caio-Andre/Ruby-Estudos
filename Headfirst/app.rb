@@ -35,17 +35,34 @@ end
 # Ler os livros do banco de dados e cria objetos da class Livros. 
 
 def carregar_livros
-  estante = []
-  File.open("banco_de_dados.txt") do |file|
-    file.each do |line| 
-      id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
-      estante << Livro.new(id, genero, titulo, autor, paginas.to_i, precos.to_f)
+  while true do
+    estante = []
+    File.open("banco_de_dados.txt") do |file|
+      file.each do |line| 
+        id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
+        estante << Livro.new(id, genero, titulo, autor, paginas.to_i, precos.to_f)
+      end 
     end 
+    return estante
+    break
   end 
-  return estante
 end
 
-adicionar_livros_banco_de_dados
+
+app = true 
+while app do
+  puts "\nVATAPÀ STORE"
+  print"
+[1] CLIENTE
+[2] FUNCIONÀRIO VATAPÀ
+SELCIONE UMA OPÇÂO:"
+  decision = gets.chomp.to_i()
+  if decision == 1
+    carregar_livros
+  elsif decision == 2
+    adicionar_livros_banco_de_dados
+  end 
+end 
 
 
 
