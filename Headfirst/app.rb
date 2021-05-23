@@ -14,7 +14,8 @@ while app do
 [2] FUNCIONÁRIO VATAPÀ
 [3] SAIR DA LOJA
 SELECIONE UMA OPÇÂO:"
-  decision = gets.chomp.to_i()
+
+  decision = validar_entrada(3)
   if decision == 1
     abrir_interface_cliente(estante)
   elsif decision == 2
