@@ -43,4 +43,18 @@ def adicionar_livros_banco_de_dados
 end 
 
 
-def 
+def validar_entrada (numero_de_opcoes_validas) 
+  opções = (1..numero_de_opcoes_validas).to_a
+  escolha_usuario = gets.chomp.to_i
+  while true do   
+    if opções.include? escolha_usuario
+        return escolha_usuario
+
+    else
+      puts "OPÇÃO INVÁLIDA"
+      print "ESCOLHA ENTRE AS OPÇÕES VÁLIDAS #{opções}: "
+      escolha_usuario = gets.chomp.to_i
+    end 
+  end 
+end 
+

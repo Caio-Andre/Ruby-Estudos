@@ -13,11 +13,10 @@ while app do
 [1] CLIENTE
 [2] FUNCIONÁRIO VATAPÀ
 [3] SAIR DA LOJA
-SELCIONE UMA OPÇÂO:"
+SELECIONE UMA OPÇÂO:"
   decision = gets.chomp.to_i()
   if decision == 1
-    
-    puts estante.livros
+    abrir_interface_cliente(estante)
   elsif decision == 2
     adicionar_livros_banco_de_dados
   elsif decision == 3
