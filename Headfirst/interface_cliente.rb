@@ -38,6 +38,7 @@ OPÇÃO: "
             estante.filtrar_por_paginas
         else
             # CONTINUAR ###### DECISAO PARA VOLTAR PARA TELA DE INICIO
+            break # UM SIMPLE BREAK FUNCIONA 
         end
 
         # Essa parte vai servir para finlizar as compras se o usuário quiser 
