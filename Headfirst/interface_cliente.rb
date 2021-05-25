@@ -41,10 +41,10 @@ OPÇÃO: "
         ## CRIAR INTERFACE DE FINALIZAÇÃO DE COMPRA
 
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
-        print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [1 - Sim] [2 - Não]: "
+        print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [Sim - 1] [Não - 2]: "
         decisao = validar_entrada(2)
             if decisao == 1 
-                finalizar_compras
+                finalizar_compras(carrinho)
             end
     end 
 end 

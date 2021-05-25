@@ -1,6 +1,7 @@
 require_relative 'classes'
 require_relative 'funcoes'
 require_relative 'interface_cliente'
+require_relative 'interface_finalizar_compra'
 
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)

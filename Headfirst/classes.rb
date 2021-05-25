@@ -12,7 +12,7 @@ class Livro
   
   
     def to_s
-      "\n[\033[1;37mID:#{@id}] \033[1;32mGênero:#{@genero}|\033[1;32mTitulo:#{@titulo}|\033[1;32mAutor:#{@autor}|\033[1;33mNúmero de páginas:#{@paginas}|\033[1;31mPreço:#{@preco}\033[m"
+      "\n[\033[1;37mID:#{@id}] \033[1;32mGênero:#{@genero}|\033[1;32mTitulo:#{@titulo}|\033[1;32mAutor:#{@autor}|\033[1;33mNúmero de páginas:#{@paginas}|\033[1;31mPreço:R$#{@preco}\033[m"
     end
   
 end
@@ -86,7 +86,7 @@ class Estante
   def selecionar_livros_desejados (livros_filtrados)
     livros_desejados = []
     puts "LIVROS ENCONTRADOS:\n", livros_filtrados
-    print "\nVOCÊ DESEJA ADICIONAR ALGUM DESSES LIVROS NO CARRINHO [1 - Sim] [2 - Não]: "
+    print "\nVOCÊ DESEJA ADICIONAR ALGUM DESSES LIVROS NO CARRINHO [Sim - 1] [Não - 2]: "
     decisao = validar_entrada(2)
 
     if decisao == 2
@@ -102,7 +102,7 @@ class Estante
           end 
         end 
 
-        puts "\nVOCÊ QUE ADICIONAR OUTRO LIVRO [1 - Sim] [2 - Não]: "
+        puts "\nVOCÊ QUE ADICIONAR OUTRO LIVRO [Sim - 1] [Não - 2]: "
         decisao = validar_entrada(2)
         if decisao == 1
           puts "LIVROS ENCONTRADOS:\n", livros_filtrados
@@ -120,30 +120,54 @@ class Carrinho
   
   def adicionar_carrinho (livros_desejados)
     @lista_de_compras.push(*livros_desejados)
-    puts "SEU CARRINHO ATUAL:\n", @lista_de_compras
+    puts "\nSEU CARRINHO ATUAL:", @lista_de_compras
   end
 
   def mostrar_lista_compras
     puts "LIVROS NO CARRINHO:\n", @lista_de_compras
   end 
 
-  def remover_livros
-    puts "LIVROS NO CARRINHO:\n", @lista_de_compras
-    
-    while true
-        puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
-        id = validar_id(@lista_de_livros)
-        for livro in @lista_de_compras
-          if livro.id == id
-            @lista_de_compras.delete(livro)
-            puts "LIVRO REMOVIDO DO CARRINHO"
+  def calcular_subtotal
+    subtotal = 0
+    for livro in @lista_de_compras
+      subtotal += livro.preco 
+    end 
+    puts "[Subtotal = R$#{subtotal}]"
+    return subtotal
+  end 
+
+  def alterar_carrinho
+    puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+    puts "VOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]"
+    decisao_cliente = validar_entrada(2)
+    if decisao_cliente = 1
+      while true do 
+        puts "\nINDIQUE O LIVRO  PELO ID:"
+        id = validar_id(@lista_de_compras)
+        puts "QUANTOS EXEMPLARES ADICIONAR: "
+        quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
+        
+      end 
+    end 
+
+    if decisao_cliente == 2
+      while true do
+          puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
+          id = validar_id(@lista_de_compras)
+          for livro in @lista_de_compras
+            if livro.id == id
+              @lista_de_compras.delete(livro)
+              puts "LIVRO REMOVIDO DO CARRINHO"
+            end 
+          end
+          puts "VOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: "
+          decisao = validar_entrada(2)
+          if decisao == 2
+            break
           end 
-        end
-        puts "VOCÊ DESEJA REMOVER OUTRO LIVRO [1 - Sim] [2 - Não]: "
-        decisao = validar_entrada(2)
-        if decisao == 2
-           break
-        end 
+      end 
     end 
   end 
+
+
 end 
