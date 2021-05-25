@@ -1,7 +1,9 @@
-require_relative "classes"
+
 
 def abrir_interface_cliente(estante)
+    # Cria o carrinho de compras
     carrinho = Carrinho.new
+
     puts "\nVATAPÁ STORE"
     puts "Bem Vindo à maior loja de livros do Norte!"
     while true 
@@ -42,7 +44,7 @@ OPÇÃO: "
         print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [1 - Sim] [2 - Não]: "
         decisao = validar_entrada(2)
             if decisao == 1 
-                break ## INTERFACE DE FINALIZACAO DA COMPRA
+                finalizar_compras
             end
     end 
 end 

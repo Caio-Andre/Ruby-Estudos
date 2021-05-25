@@ -94,7 +94,7 @@ class Estante
     else
       while decisao == 1 do
         puts "\nINDIQUE O LIVRO DESEJADO PELO ID:"
-        id = gets.chomp.strip.to_i 
+        id = validar_id(livros_filtrados)
         for livro in livros_filtrados
           if livro.id == id
             livros_desejados << livro
@@ -117,8 +117,33 @@ class Carrinho
   def initialize 
     @lista_de_compras = []
   end 
+  
   def adicionar_carrinho (livros_desejados)
     @lista_de_compras.push(*livros_desejados)
     puts "SEU CARRINHO ATUAL:\n", @lista_de_compras
   end
+
+  def mostrar_lista_compras
+    puts "LIVROS NO CARRINHO:\n", @lista_de_compras
+  end 
+
+  def remover_livros
+    puts "LIVROS NO CARRINHO:\n", @lista_de_compras
+    
+    while true
+        puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
+        id = validar_id(@lista_de_livros)
+        for livro in @lista_de_compras
+          if livro.id == id
+            @lista_de_compras.delete(livro)
+            puts "LIVRO REMOVIDO DO CARRINHO"
+          end 
+        end
+        puts "VOCÊ DESEJA REMOVER OUTRO LIVRO [1 - Sim] [2 - Não]: "
+        decisao = validar_entrada(2)
+        if decisao == 2
+           break
+        end 
+    end 
+  end 
 end 

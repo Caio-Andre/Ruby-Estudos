@@ -58,5 +58,19 @@ def validar_entrada (numero_de_opcoes_validas)
   end 
 end 
 
+def validar_id (lista_de_livros)
+  escolha_usuario_id = gets.chomp.strip.to_i
+  while true do
+    for livro in lista_de_livros
+      if livro.id == escolha_usuario_id
+        return escolha_usuario_id
+      end 
+    end 
+    puts "\nOPÇÃO INVÁLIDA -- LIVRO NÃO FAZ PARTE DA LISTA"
+    print "\nINSIRA OUTRO ID : "
+    escolha_usuario_id = gets.chomp.strip.to_i
+  end 
+end 
+
 
 
