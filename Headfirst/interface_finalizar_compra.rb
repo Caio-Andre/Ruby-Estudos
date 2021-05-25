@@ -8,7 +8,9 @@ def finalizar_compras(carrinho)
     if decisao_cliente == 1
         carrinho.alterar_carrinho
     end 
-
+    carrinho.mostrar_lista_compras
+    # Testar funcao alterar carrinho 
+    # Criar inteface de cadastro e frete (onde haja a possibilidade de retornar para o cadastro caso ele esteja errado)
     
 
 end 

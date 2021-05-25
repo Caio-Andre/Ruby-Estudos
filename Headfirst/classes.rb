@@ -140,7 +140,7 @@ class Carrinho
     puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
     puts "VOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: "
     decisao_cliente = validar_entrada(2)
-    if decisao_cliente = 1
+    if decisao_cliente == 1
       while true do 
         puts "\nINDIQUE O LIVRO  PELO ID:"
         id = validar_id(@lista_de_compras)
@@ -155,14 +155,15 @@ class Carrinho
               contador += 1
             end
           end
-          print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
-          decisao_cliente = validar_entrada
-          if decisao_cliente == 2
-            break
-          end
         end
+        print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
+        decisao_cliente = validar_entrada(2)
+        if decisao_cliente == 2
+          break
+        end
+        
       end 
-    end 
+    
     else
       while true do
           puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
