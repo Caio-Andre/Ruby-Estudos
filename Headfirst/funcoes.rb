@@ -5,7 +5,7 @@ def carregar_livros
   File.open("banco_de_dados.txt") do |file|
     file.each do |line| 
       id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
-      livros << Livro.new(id, genero, titulo, autor, paginas.to_i, precos.to_f)
+      livros << Livro.new(id.to_i, genero, titulo, autor, paginas.to_i, precos.to_f)
     end 
   end
   return livros
@@ -45,16 +45,18 @@ end
 
 def validar_entrada (numero_de_opcoes_validas) 
   opções = (1..numero_de_opcoes_validas).to_a
-  escolha_usuario = gets.chomp.to_i
+  escolha_usuario = gets.chomp.strip.to_i
   while true do   
     if opções.include? escolha_usuario
         return escolha_usuario
 
     else
-      puts "OPÇÃO INVÁLIDA"
+      puts "\nOPÇÃO INVÁLIDA"
       print "ESCOLHA ENTRE AS OPÇÕES VÁLIDAS #{opções}: "
-      escolha_usuario = gets.chomp.to_i
+      escolha_usuario = gets.chomp.strip.to_i
     end 
   end 
 end 
+
+
 

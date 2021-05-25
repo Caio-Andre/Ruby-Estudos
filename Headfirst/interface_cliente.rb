@@ -1,6 +1,7 @@
 require_relative "classes"
 
 def abrir_interface_cliente(estante)
+    carrinho = Carrinho.new
     puts "\nVATAPÁ STORE"
     puts "Bem Vindo à maior loja de livros do Norte!"
     while true 
@@ -17,34 +18,31 @@ OPÇÃO: "
         if decisao_cliente == 1 
             print "INFORME O TÍTULO:"
             titulo_escolhido_cliente = gets.chomp.upcase.strip
-            livros_desejados = estante.filtrar(titulo_escolhido_cliente)
-            if livro_desejado.class == Livro
-                print "DESEJA ADICIONAR O LIVRO NO CARRINHO [S] [N]: "
-                if gets.chomp.upcase == "S"
-                    carrinho.produtos << livros_desejados 
-                    carrinho.mostrar
-                    next
-                end 
-            end
+            livros_filtrados = estante.filtrar(titulo_escolhido_cliente)
+            carrinho.adicionar_carrinho(estante.selecionar_livros_desejados(livros_filtrados))
         elsif decisao_cliente == 2
             print "INFORME O AUTOR:"
             autor_escolhido_cliente = gets.chomp.upcase.strip
-            livros_desejados = estante.filtrar(autor_escolhido_cliente)
+            livros_filtrados = estante.filtrar(autor_escolhido_cliente)
+            carrinho.adicionar_carrinho(estante.selecionar_livros_desejados(livros_filtrados))
         elsif decisao_cliente == 3
             print "INFORME O GÊNERO:"
             genero_escolhido_cliente = gets.chomp.upcase.strip
-            livros_desejados = estante.filtrar(genero_escolhido_cliente)
+            livros_filtrados = estante.filtrar(genero_escolhido_cliente)
+            carrinho.adicionar_carrinho(estante.selecionar_livros_desejados(livros_filtrados))
         elsif decisao_cliente == 4
-            estante.filtrar_por_paginas
+            livros_filtrados = estante.filtrar_por_paginas
+            carrinho.adicionar_carrinho(estante.selecionar_livros_desejados(livros_filtrados))
         else
-            # CONTINUAR ###### DECISAO PARA VOLTAR PARA TELA DE INICIO
-            break # UM SIMPLE BREAK FUNCIONA 
+            break 
         end
+        ## CRIAR INTERFACE DE FINALIZAÇÃO DE COMPRA
 
-        # Essa parte vai servir para finlizar as compras se o usuário quiser 
-        print "\n VOCẼ DESEJA FINALIZAR SUAS COMPRAS [S] [N]: "
-        if gets.chomp.upcase == "S"
-            break
-        end
+        # Essa parte vai servir para finalizar as compras se o usuário quiser 
+        print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [1 - Sim] [2 - Não]: "
+        decisao = validar_entrada(2)
+            if decisao == 1 
+                break ## INTERFACE DE FINALIZACAO DA COMPRA
+            end
     end 
 end 
