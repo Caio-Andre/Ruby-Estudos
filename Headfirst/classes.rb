@@ -138,7 +138,7 @@ class Carrinho
 
   def alterar_carrinho
     puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
-    puts "VOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]"
+    puts "VOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: "
     decisao_cliente = validar_entrada(2)
     if decisao_cliente = 1
       while true do 
@@ -146,11 +146,24 @@ class Carrinho
         id = validar_id(@lista_de_compras)
         puts "QUANTOS EXEMPLARES ADICIONAR: "
         quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
-        
+        contador = 0
+        for livro in @lista_de_compras
+          if livro.id == id
+            while contador < quantidade_de_exemplares
+              indice = @lista_de_compras.index(livro)
+              @lista_de_compras.insert(indice + 1, livro)
+              contador += 1
+            end
+          end
+          print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
+          decisao_cliente = validar_entrada
+          if decisao_cliente == 2
+            break
+          end
+        end
       end 
     end 
-
-    if decisao_cliente == 2
+    else
       while true do
           puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
           id = validar_id(@lista_de_compras)
