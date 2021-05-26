@@ -42,6 +42,23 @@ def adicionar_livros_banco_de_dados
   end
 end 
 
+def calcular_frete(subtotal)
+  puts "ESCOLHA SEU FRETE"
+  print """\n[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
+[2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
+FRETE: """
+  opção_frete_cliente = validar_entrada(2)
+  if opção_frete_cliente == 1
+    total = 25 + subtotal
+    puts "                                                                                      [TOTAL = R$#{total}]"
+  else 
+    total = 40 + subtotal
+    puts "                                                                                      [TOTAL = R$#{total}]"
+  end 
+  return total 
+end 
+
+
 
 def validar_entrada (numero_de_opcoes_validas) 
   opções = (1..numero_de_opcoes_validas).to_a
@@ -71,6 +88,5 @@ def validar_id (lista_de_livros)
     escolha_usuario_id = gets.chomp.strip.to_i
   end 
 end 
-
 
 

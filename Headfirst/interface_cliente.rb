@@ -1,10 +1,10 @@
 
 
 def abrir_interface_cliente(estante)
+    Gem.win_platform? ? (system "cls") : (system "clear")
     # Cria o carrinho de compras
     carrinho = Carrinho.new
-
-    puts "\nVATAPÁ STORE"
+    puts "\n\nVATAPÁ STORE"
     puts "Bem Vindo à maior loja de livros do Norte!"
     while true 
         puts "\nVATAPÁ STORE"
@@ -16,7 +16,7 @@ def abrir_interface_cliente(estante)
 OPÇÃO: "
         
         decisao_cliente = validar_entrada (5)
-
+        
         if decisao_cliente == 1 
             print "INFORME O TÍTULO:"
             titulo_escolhido_cliente = gets.chomp.upcase.strip

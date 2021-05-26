@@ -93,7 +93,7 @@ class Estante
       return livros_desejados
     else
       while decisao == 1 do
-        puts "\nINDIQUE O LIVRO DESEJADO PELO ID:"
+        print "\nINDIQUE O LIVRO DESEJADO PELO ID:"
         id = validar_id(livros_filtrados)
         for livro in livros_filtrados
           if livro.id == id
@@ -102,7 +102,7 @@ class Estante
           end 
         end 
 
-        puts "\nVOCÊ QUE ADICIONAR OUTRO LIVRO [Sim - 1] [Não - 2]: "
+        print "\nVOCÊ QUE ADICIONAR OUTRO LIVRO [Sim - 1] [Não - 2]: "
         decisao = validar_entrada(2)
         if decisao == 1
           puts "LIVROS ENCONTRADOS:\n", livros_filtrados
@@ -124,7 +124,7 @@ class Carrinho
   end
 
   def mostrar_lista_compras
-    puts "LIVROS NO CARRINHO:\n", @lista_de_compras
+    puts "\nLIVROS NO CARRINHO:", @lista_de_compras
   end 
 
   def calcular_subtotal
@@ -132,56 +132,85 @@ class Carrinho
     for livro in @lista_de_compras
       subtotal += livro.preco 
     end 
-    puts "[Subtotal = R$#{subtotal}]"
+    puts "\n                                                                                      [Subtotal = R$#{subtotal}]"
     return subtotal
   end 
 
   def alterar_carrinho
     puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
-    puts "VOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: "
-    decisao_cliente = validar_entrada(2)
-    if decisao_cliente == 1
-      while true do 
-        puts "\nINDIQUE O LIVRO  PELO ID:"
-        id = validar_id(@lista_de_compras)
-        puts "QUANTOS EXEMPLARES ADICIONAR: "
-        quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
-        contador = 0
-        for livro in @lista_de_compras
-          if livro.id == id
-            while contador < quantidade_de_exemplares
-              indice = @lista_de_compras.index(livro)
-              @lista_de_compras.insert(indice + 1, livro)
-              contador += 1
-            end
-          end
-        end
-        print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
-        decisao_cliente = validar_entrada(2)
-        if decisao_cliente == 2
-          break
-        end
-        
-      end 
-    
-    else
-      while true do
-          puts "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID:"
+    calcular_subtotal
+    while true do
+      print "\nVOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: "
+      decisao_cliente = validar_entrada(2)
+      if decisao_cliente == 1
+        while true do 
+          print "\nINDIQUE O LIVRO  PELO ID:"
           id = validar_id(@lista_de_compras)
+          print "ADICIONAR QUANTOS EXEMPLARES: "
+          quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
+          contador = 0
           for livro in @lista_de_compras
             if livro.id == id
-              @lista_de_compras.delete(livro)
-              puts "LIVRO REMOVIDO DO CARRINHO"
-            end 
+              while contador < quantidade_de_exemplares
+                indice = @lista_de_compras.index(livro)
+                @lista_de_compras.insert(indice + 1, livro)
+                contador += 1
+              end
+            end
           end
-          puts "VOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: "
-          decisao = validar_entrada(2)
-          if decisao == 2
+          
+          puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+          calcular_subtotal
+          print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
+          decisao_cliente = validar_entrada(2)
+          puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+          calcular_subtotal
+          if decisao_cliente == 2
             break
-          end 
+          end
+          
+        end 
+      
+      else
+        while true do
+            print "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID: "
+            id = validar_id(@lista_de_compras)
+            print "REMOVER QUANTOS EXEMPLARES: "
+            quantidade_de_exemplares = gets.chomp.strip.to_i
+            contador = 0
+            for livro in @lista_de_compras
+              if livro.id == id
+                if contador < quantidade_de_exemplares
+                  indice = @lista_de_compras.index(livro)
+                  @lista_de_compras.delete_at(indice)
+                  puts "LIVRO REMOVIDO DO CARRINHO"
+                  contador += 1
+                else 
+                  break 
+                end 
+              end 
+            end
+            
+            puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+            calcular_subtotal
+            print "VOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: "
+            decisao = validar_entrada(2)
+            puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+            calcular_subtotal
+            if decisao == 2
+              break
+            end 
+        end 
       end 
+
+      print "\nVOCÊ DESEJA FAZER MAIS ALGUMA ALTERÇÃO NO CARRINHO [Sim - 1] [Não - 2]: "
+      decisao = validar_entrada(2)
+  
+      if decisao == 2
+          break
+      end
     end 
   end 
 
-
 end 
+
