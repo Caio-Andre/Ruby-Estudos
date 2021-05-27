@@ -14,7 +14,24 @@ def finalizar_compras(carrinho)
     calcular_frete(carrinho.calcular_subtotal)
     puts "\n\n"
     
-    cadastro
-    # Criar inteface de cadastro (onde haja a possibilidade de retornar para o cadastro caso ele esteja errado)
+    print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO"
+    decisao_cliente_cadastro = validar_entrada(2)
+    if decisao_cliente_cadastro == 1
+        while true do
+            puts "LOGIN"
+            print "SEU E-MAIL: "
+            e_mail_cliente = gets.chomp.strip
+            senha_cliente = gets.chomp.strip
+            cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
+            if cliente == []
+                puts "SEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!"
+                next
+            end 
+        end 
+        
+    else
+        cliente = fazer_cadastro
+    end 
+    
 
 end 

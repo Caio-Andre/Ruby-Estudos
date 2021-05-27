@@ -3,8 +3,5 @@ def fazer_cadastro
     puts "\n\nVATAPÁ STORE"
     puts "\nFAÇA O SEU CADASTRO"
     
-    adicionar_clientes_banco_de_dados
-    
-    
-
+    return carregar_dados_cliente(*adicionar_clientes_banco_de_dados)
 end 

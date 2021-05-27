@@ -7,7 +7,7 @@ require_relative 'cadastro'
 
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
-carregar_dados_cliente(e_mail_cliente,senha_cliente)
+
 
 
 =begin

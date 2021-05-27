@@ -99,7 +99,8 @@ E-MAIL: [#{e_mail}]""")
     end
 
     puts "CADASTRO REALIZADO COM SUCESSO!"
-    break 
+    return [e_mail, senha]
+   
   end
 end 
 
