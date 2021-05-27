@@ -35,8 +35,6 @@ end
 
 
 
-
-
 class Estante
   attr_accessor :livros
   def initialize (livros)
