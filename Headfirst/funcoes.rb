@@ -1,5 +1,4 @@
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
-
 def carregar_livros
   livros = []
   File.open("banco_de_dados_livros.txt") do |file|
@@ -13,7 +12,6 @@ end
 
 
 # ADICIONA NOVOS LIVROS NO BANCO
-
 def adicionar_livros_banco_de_dados
   while true
     print "Por favor, informe o id do livro:"
@@ -42,8 +40,8 @@ def adicionar_livros_banco_de_dados
   end
 end 
 
-# Calcula o frete e soma com o subtotal
 
+# CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
 def calcular_frete(subtotal)
   puts "ESCOLHA SEU FRETE"
   print """\n[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
@@ -61,6 +59,7 @@ FRETE: """
 end 
 
 
+# RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA
 def validar_entrada (numero_de_opcoes_validas) 
   opções = (1..numero_de_opcoes_validas).to_a
   escolha_usuario = gets.chomp.strip.to_i
@@ -76,6 +75,8 @@ def validar_entrada (numero_de_opcoes_validas)
   end 
 end 
 
+
+# RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA E O LIVRO EXISTE NA LISTA DE LIVROS
 def validar_id (lista_de_livros)
   escolha_usuario_id = gets.chomp.strip.to_i
   while true do

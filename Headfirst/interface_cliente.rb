@@ -14,9 +14,8 @@ def abrir_interface_cliente(estante)
 [5] VOLTAR PARA PAGINA INICIAL
 
 OPÇÃO: "
-        
         decisao_cliente = validar_entrada (5)
-        
+
         if decisao_cliente == 1 
             print "INFORME O TÍTULO:"
             titulo_escolhido_cliente = gets.chomp.upcase.strip
@@ -51,7 +50,6 @@ OPÇÃO: "
             break 
         end
        
-
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [Sim - 1] [Não - 2]: "
         decisao = validar_entrada(2)

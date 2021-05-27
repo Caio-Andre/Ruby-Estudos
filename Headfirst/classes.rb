@@ -183,7 +183,6 @@ class Carrinho
           if decisao_cliente == 2
             break
           end
-  
         end 
       
       else
@@ -224,7 +223,7 @@ class Carrinho
       if decisao == 2
           break
       end
-      
+
     end 
   end 
 
