@@ -33,8 +33,6 @@ E-MAIL: [#{@e_mail}]"""
 
 end
 
-
-
 class Estante
   attr_accessor :livros
   def initialize (livros)
@@ -185,7 +183,7 @@ class Carrinho
           if decisao_cliente == 2
             break
           end
-          
+  
         end 
       
       else
@@ -217,15 +215,16 @@ class Carrinho
             if decisao == 2
               break
             end 
+
         end 
       end 
 
       print "\nVOCÊ DESEJA FAZER MAIS ALGUMA ALTERÇÃO NO CARRINHO [Sim - 1] [Não - 2]: "
       decisao = validar_entrada(2)
-  
       if decisao == 2
           break
       end
+      
     end 
   end 
 

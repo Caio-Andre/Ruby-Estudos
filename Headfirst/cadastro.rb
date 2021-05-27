@@ -1,5 +1,4 @@
 
-
 def fazer_cadastro 
     puts "\n\nVATAPÁ STORE"
     puts "\nFAÇA O SEU CADASTRO"
