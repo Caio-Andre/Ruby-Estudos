@@ -2,11 +2,13 @@ require_relative 'classes'
 require_relative 'funcoes'
 require_relative 'interface_cliente'
 require_relative 'interface_finalizar_compra'
+require_relative 'cadastro'
 
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
+fazer_cadastro 
 
-
+=begin
 app = true 
 while app do
   puts "\nVATAPÁ STORE"
@@ -25,6 +27,7 @@ SELECIONE UMA OPÇÂO:"
     app = false
   end 
 end 
+=end
 
 
 

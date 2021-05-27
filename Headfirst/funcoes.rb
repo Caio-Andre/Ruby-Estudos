@@ -2,7 +2,7 @@
 
 def carregar_livros
   livros = []
-  File.open("banco_de_dados.txt") do |file|
+  File.open("banco_de_dados_livros.txt") do |file|
     file.each do |line| 
       id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
       livros << Livro.new(id.to_i, genero, titulo, autor, paginas.to_i, precos.to_f)
@@ -29,7 +29,7 @@ def adicionar_livros_banco_de_dados
     print "Por favor, informe o preço do livro:"
     preco = gets.chomp.to_f
 
-    File.open("banco_de_dados.txt", "a") do |arquivo|
+    File.open("banco_de_dados_livros.txt", "a") do |arquivo|
       arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
     end
     
@@ -41,6 +41,8 @@ def adicionar_livros_banco_de_dados
     end
   end
 end 
+
+# Calcula o frete e soma com o subtotal
 
 def calcular_frete(subtotal)
   puts "ESCOLHA SEU FRETE"
@@ -57,7 +59,6 @@ FRETE: """
   end 
   return total 
 end 
-
 
 
 def validar_entrada (numero_de_opcoes_validas) 

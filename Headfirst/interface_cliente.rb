@@ -50,7 +50,7 @@ OPÇÃO: "
         else
             break 
         end
-        ## CRIAR INTERFACE DE FINALIZAÇÃO DE COMPRA
+       
 
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [Sim - 1] [Não - 2]: "
