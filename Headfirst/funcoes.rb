@@ -1,3 +1,4 @@
+require_relative "classes"
 
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_livros
@@ -65,25 +66,25 @@ def adicionar_clientes_banco_de_dados
     print "INFORME O SEU NOME COMPLETO: "
     nome = gets.chomp.strip.upcase
     print "INFORME O DIA DO SEU NASCIMENTO: "
-    dia_nascimento = gets.chomp.strip.to_i
+    dia_nascimento = gets.chomp.strip
     print "INFORME O MES DO SEU NASCIMENTO: "
-    mes_nascimento = gets.chomp.strip.to_i
+    mes_nascimento = gets.chomp.strip
     print "INFORME O ANO DO SEU NASCIMENTO: "
-    ano_nascimento = gets.chomp.strip.to_i
+    ano_nascimento = gets.chomp.strip
     print "INFORME O ESTADO: "
     estado = gets.chomp.strip.upcase
     print "INFORME A SUA CIDADE: "
     cidade = gets.chomp.strip.upcase
     print "INFORME O NÚMERO DA SUA RESIDÊNCIA: "
-    numero = gets.chomp.strip.to_i
+    numero = gets.chomp.strip
     print "INFORME O SEU CEP: "
-    cep = gets.chomp.strip.to_i
+    cep = gets.chomp.strip
 
     print "\nINFORME O SEU E-MAIL PARA LOGIN: "
     e_mail = gets.chomp.strip.downcase
 
     print "\nINFORME O SUA SENHA PARA LOGIN: "
-    senha = gets.chomp.strip.downcase.to_i
+    senha = gets.chomp.strip.downcase
 
     puts("""NOME: [#{nome}]
 DATA DE NASCIMENTO: #{dia_nascimento}/#{mes_nascimento}/#{ano_nascimento}
@@ -104,16 +105,15 @@ end
 
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_dados_cliente(e_mail_cliente,senha_cliente)
-  cliente = []
-  File.open("banco_de_dados_livros.txt") do |file|
-    file.each do |line| 
-      nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha = line.chomp.split("|")
-      if e_mail_cliente == e_mail && senha_cliente == senha
-        cliente << Cliente.new(nome, dia_nascimento.to_i, mes_nascimento.to_i, ano_nascimento.to_i, estado, cidade, numero.to_i, cep.to_i, e_mail, senha.to_i)
-      end 
+  clientes = []
+  File.open("banco_de_dados_clientes.txt") do |file|
+    file.each do |line|
+      if e_mail_cliente == line.chomp.split("|")[8] && senha_cliente == line.chomp.split("|")[9]
+        clientes << Cliente.new(*line.chomp.split("|"))
+      end
     end 
   end
-  return cliente
+  return clientes
 end
 
 
