@@ -19,14 +19,15 @@ end
 
 class Cliente
 
-  attr_reader :nome, :dia_nascimento, :mes_nacimento, :ano_nascimento, :estado, :cidade, :numero, :cep, :e_mail, :senha
+  attr_reader :nome, :dia_nascimento, :mes_nascimento, :ano_nascimento, :estado, :cidade, :numero, :cep, :e_mail, :senha
 
-  def initialize(nome, dia_nascimento, mes_nacimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha)
-    @nome, @dia_nascimento, @mes_nascimento, @ano_nascimento, @estado, @cidade, @numero, @cep, @e_mail, @senha = nome, dia_nascimento, mes_nacimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha
+  def initialize(nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha)
+    @nome, @dia_nascimento, @mes_nascimento, @ano_nascimento, @estado, @cidade, @numero, @cep, @e_mail, @senha = nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha
+  end
 
   def to_s
     """NOME: [#{@nome}]
-DATA DE NASCIMENTO: #{@dia_nascimento}/#{@mes_nacimento}/#{@ano_nascimento}
+DATA DE NASCIMENTO: #{@dia_nascimento}/#{@mes_nascimento}/#{@ano_nascimento}
 ENDEREÇO: ESTADO[#{@estado}] CIDADE[#{@cidade}] NUMERO[#{@numero}] CEP[#{@cep}]
 E-MAIL: [#{@e_mail}]"""
   end

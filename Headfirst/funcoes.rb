@@ -1,3 +1,4 @@
+
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_livros
   livros = []
@@ -14,17 +15,17 @@ end
 # ADICIONA NOVOS LIVROS NO BANCO
 def adicionar_livros_banco_de_dados
   while true
-    print "Por favor, informe o id do livro:"
+    print "Por favor, informe o id do livro: "
     id = gets.chomp.to_i
-    print "Por favor, informe o gênero do livro:"
+    print "Por favor, informe o gênero do livro: "
     genero = gets.chomp
-    print "Por favor, informe o título do livro:"
+    print "Por favor, informe o título do livro: "
     titulo = gets.chomp
-    print "Por favor, informe o autor do livro:"
+    print "Por favor, informe o autor do livro: "
     autor = gets.chomp
-    print "Por favor, informe o número de páginas do livro:"
+    print "Por favor, informe o número de páginas do livro: "
     paginas = gets.chomp.to_i
-    print "Por favor, informe o preço do livro:"
+    print "Por favor, informe o preço do livro: "
     preco = gets.chomp.to_f
 
     File.open("banco_de_dados_livros.txt", "a") do |arquivo|
@@ -58,6 +59,63 @@ FRETE: """
   return total 
 end 
 
+# ADICIONA NOVOS LIVROS NO BANCO
+def adicionar_clientes_banco_de_dados
+  while true
+    print "INFORME O SEU NOME COMPLETO: "
+    nome = gets.chomp.strip.upcase
+    print "INFORME O DIA DO SEU NASCIMENTO: "
+    dia_nascimento = gets.chomp.strip.to_i
+    print "INFORME O MES DO SEU NASCIMENTO: "
+    mes_nascimento = gets.chomp.strip.to_i
+    print "INFORME O ANO DO SEU NASCIMENTO: "
+    ano_nascimento = gets.chomp.strip.to_i
+    print "INFORME O ESTADO: "
+    estado = gets.chomp.strip.upcase
+    print "INFORME A SUA CIDADE: "
+    cidade = gets.chomp.strip.upcase
+    print "INFORME O NÚMERO DA SUA RESIDÊNCIA: "
+    numero = gets.chomp.strip.to_i
+    print "INFORME O SEU CEP: "
+    cep = gets.chomp.strip.to_i
+
+    print "\nINFORME O SEU E-MAIL PARA LOGIN: "
+    e_mail = gets.chomp.strip.downcase
+
+    print "\nINFORME O SUA SENHA PARA LOGIN: "
+    senha = gets.chomp.strip.downcase.to_i
+
+    puts("""NOME: [#{nome}]
+DATA DE NASCIMENTO: #{dia_nascimento}/#{mes_nascimento}/#{ano_nascimento}
+ENDEREÇO: ESTADO[#{estado}] CIDADE[#{cidade}] NUMERO[#{numero}] CEP[#{cep}]
+E-MAIL: [#{e_mail}]""")
+    puts "SEUS DADOS ESTÃO CORRETOS [Sim - 1] [Não - 2]: "
+    decisao_cliente = validar_entrada(2)
+    next if decisao_cliente == 2
+        
+    File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
+      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}")
+    end
+
+    puts "CADASTRO REALIZADO COM SUCESSO!"
+    break 
+  end
+end 
+
+# LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
+def carregar_dados_cliente(e_mail_cliente,senha_cliente)
+  cliente = []
+  File.open("banco_de_dados_livros.txt") do |file|
+    file.each do |line| 
+      nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha = line.chomp.split("|")
+      if e_mail_cliente == e_mail && senha_cliente == senha
+        cliente << Cliente.new(nome, dia_nascimento.to_i, mes_nascimento.to_i, ano_nascimento.to_i, estado, cidade, numero.to_i, cep.to_i, e_mail, senha.to_i)
+      end 
+    end 
+  end
+  return cliente
+end
+
 
 # RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA
 def validar_entrada (numero_de_opcoes_validas) 
@@ -90,5 +148,8 @@ def validar_id (lista_de_livros)
     escolha_usuario_id = gets.chomp.strip.to_i
   end 
 end 
+
+
+
 
 

@@ -4,9 +4,14 @@ require_relative 'interface_cliente'
 require_relative 'interface_finalizar_compra'
 require_relative 'cadastro'
 
+
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
-fazer_cadastro 
+
+e_mail_cliente = "caio@gmail.com"
+senha_cliente = 2020
+puts "#{carregar_dados_cliente(e_mail_cliente,senha_cliente)}"
+
 
 =begin
 app = true 

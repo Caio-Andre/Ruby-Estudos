@@ -13,6 +13,7 @@ def finalizar_compras(carrinho)
     puts "\n\n"
     calcular_frete(carrinho.calcular_subtotal)
     puts "\n\n"
+    
     cadastro
     # Criar inteface de cadastro (onde haja a possibilidade de retornar para o cadastro caso ele esteja errado)
 
