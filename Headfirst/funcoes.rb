@@ -102,10 +102,10 @@ E-MAIL: [#{e_mail}]""")
   end
 end 
 
-# LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
+# LER OS DADOS DO CLIENTE DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE CLIENTE. 
 def carregar_dados_cliente(e_mail_cliente,senha_cliente)
   cliente = []
-  File.open("banco_de_dados_livros.txt") do |file|
+  File.open("banco_de_dados_clientes.txt") do |file|
     file.each do |line| 
       nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha = line.chomp.split("|")
       if e_mail_cliente == e_mail && senha_cliente == senha
