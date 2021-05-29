@@ -153,7 +153,7 @@ def validar_entrada (numero_de_opcoes_validas)
 end 
 
 
-# RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA E O LIVRO EXISTE NA LISTA DE LIVROS
+# RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETORNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA E SE O LIVRO EXISTE NA LISTA DE LIVROS
 def validar_id (lista_de_livros)
   escolha_usuario_id = gets.chomp.strip.to_i
   while true do
