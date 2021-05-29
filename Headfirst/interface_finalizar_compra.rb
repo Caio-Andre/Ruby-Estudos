@@ -26,6 +26,9 @@ def finalizar_compras(carrinho)
     else
         cliente = fazer_cadastro
     end 
+
+    escolher_forma_de_pagamento(total)
+
     puts "\n\n\n\nVATAPÁ STORE"
     print "\nVOCÊ DESEJA  [1 - CONFIRMAR COMPRA] [2 - SAIR DA LOJA] : "
     decisao_cliente = validar_entrada(2)
@@ -37,6 +40,7 @@ def finalizar_compras(carrinho)
         app = false
     end 
 
-    ## COLOCAR FORAMA DE PAGAMENTO E ADIOCIONAR FORMAS DESCONTOS
+    ## CONLCUIR FORMA DE PAGAMENTO(CONCERTAR PROBLEMA DO MES) E ADICIONAR FORMAS DESCONTOS
+
 
 end 

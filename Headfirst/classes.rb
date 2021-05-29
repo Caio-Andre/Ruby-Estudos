@@ -215,7 +215,6 @@ class Carrinho
             if decisao == 2
               break
             end 
-
         end 
       end 
 

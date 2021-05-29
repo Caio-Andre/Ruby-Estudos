@@ -117,6 +117,24 @@ def carregar_dados_cliente(e_mail_cliente,senha_cliente)
   return clientes
 end
 
+# DEFINE A FORMA DE PAGAMENTO DA COMPRA E VÁLIDA A FORMA
+def escolher_forma_de_pagamento(total)
+  puts "PAGAMENTO"
+  print"\n\n SELECIONE UMA FORMA DE PAGAMENTO [1 - CARTÃO DE DÉBITO] [2 - CARTÃO DE CRÉDITO] [3 - BOLETO]: "
+  decisao_cliente = validar_entrada(3)
+
+  if decisao_cliente == 1
+    validar_dados_do_cartao
+  elsif decisao_cliente == 2
+    validar_dados_do_cartao 
+    print "EM QUANTAS VEZES GOSTARIA DE PAGAR(ATÉ 6 VEZES): "
+    parcelamento = validar_entrada(6)
+    puts format("VALOR DA PARCELA: R$%.2f", total/parcelamento.to_f)
+  else 
+  end 
+
+    
+end 
 
 # RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA
 def validar_entrada (numero_de_opcoes_validas) 
@@ -152,5 +170,32 @@ end
 
 
 
+def validar_dados_do_cartao 
+  ano_atual = Time.new.year % 2000
+  mes_atual = Time.new.month 
+  dia_atual = Time.new.day
 
+  valido = false
+    while not valido 
+      print "NOME TITULAR DO CARTÃO: "
+      nome_titular_cartao = gets.chomp.strip.upcase
+      print "INFORME O NÚMERO DO CARTÃO: "
+      numero_cartao_cliente = gets.chomp.strip
+      print "MES DE VENCIMENTO DO CARTÃO (2 Dígitos): "
+      mes_cartao_vencimento = gets.chomp.strip
+      print "ANO DE VENCIMENTO DO CARTÃO (2 Dígitos): "
+      ano_cartao_vencimento = gets.chomp.strip
+      print "CÓDIGO DE SEGURANÇA (3 Dígitos): "
+      codigo_seguranca_cartao = gets.chomp.strip
+
+      valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3 && mes_cartao_vencimento.to_i >= mes_atual && ano_cartao_vencimento.to_i >= ano_atual 
+
+      if not valido 
+        puts "DADOS DO CARTÃO INVÁLIDO!"
+      else
+        puts "CARTÃO APROVADO" 
+      end
+    end  
+
+end 
 
