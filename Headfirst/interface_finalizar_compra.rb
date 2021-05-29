@@ -2,36 +2,41 @@ require_relative 'classes'
 
 def finalizar_compras(carrinho)
     
-    carrinho.mostrar_lista_compras
-    carrinho.calcular_subtotal
-    print "\nVOCÊ DESEJA ALTERAR O CARRINHO [1 - Sim] [2 - Não]: "
-    decisao_cliente = validar_entrada(2)
-    
-    if decisao_cliente == 1
-        carrinho.alterar_carrinho
-    end 
     puts "\n\n"
-    calcular_frete(carrinho.calcular_subtotal)
+    total = calcular_valor_final(carrinho.calcular_subtotal)
     puts "\n\n"
     
-    print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO"
+    print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
     decisao_cliente_cadastro = validar_entrada(2)
     if decisao_cliente_cadastro == 1
         while true do
             puts "LOGIN"
             print "SEU E-MAIL: "
             e_mail_cliente = gets.chomp.strip
+            print "DIGITE SUA SENHA: "
             senha_cliente = gets.chomp.strip
             cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
             if cliente == []
                 puts "SEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!"
                 next
             end 
+            break
         end 
         
     else
         cliente = fazer_cadastro
     end 
-    
+    puts "\n\n\n\nVATAPÁ STORE"
+    print "\nVOCÊ DESEJA  [1 - CONFIRMAR COMPRA] [2 - SAIR DA LOJA] : "
+    decisao_cliente = validar_entrada(2)
+    if decisao_cliente == 1   
+        puts "OBRIGRADO POR COMPRAR NA NOSSA LOJA!"
+        puts "COMPRA FINALIZADA"
+        app = false
+    else 
+        app = false
+    end 
+
+    ## COLOCAR FORAMA DE PAGAMENTO E ADIOCIONAR FORMAS DESCONTOS
 
 end 

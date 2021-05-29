@@ -44,7 +44,7 @@ end
 
 
 # CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
-def calcular_frete(subtotal)
+def calcular_valor_final(subtotal)
   puts "ESCOLHA SEU FRETE"
   print """\n[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
 [2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 

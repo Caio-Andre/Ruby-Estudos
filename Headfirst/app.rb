@@ -8,9 +8,6 @@ require_relative 'cadastro'
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
 
-
-
-=begin
 app = true 
 while app do
   puts "\nVATAPÁ STORE"
@@ -29,7 +26,7 @@ SELECIONE UMA OPÇÂO:"
     app = false
   end 
 end 
-=end
+
 
 
 

@@ -49,12 +49,27 @@ OPÇÃO: "
         else
             break 
         end
+
+        carrinho.mostrar_lista_compras
+        carrinho.calcular_subtotal
        
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
-        print "\nVOCẼ DESEJA FINALIZAR SUAS COMPRAS [Sim - 1] [Não - 2]: "
-        decisao = validar_entrada(2)
-            if decisao == 1 
+        print "\nVOCÊ DESEJA  [1 - ALTERAR O CARRINHO] [2 - CONTINUAR COMPRANDO] OU [3 - FINALIZAR COMPRA] : "
+        decisao_cliente = validar_entrada(3)
+        
+        if decisao_cliente == 1
+            carrinho.alterar_carrinho
+            print "\nVOCÊ DESEJA [1 - CONTINUAR COMPRANDO] OU [2 - FINALIZAR COMPRA] : "
+            decisao_cliente = validar_entrada(2)
+            if decisao_cliente == 1
+                next
+            else
                 finalizar_compras(carrinho)
-            end
+            end 
+        elsif decisao_cliente == 2
+            next
+        else
+            finalizar_compras(carrinho)
+        end 
     end 
 end 
