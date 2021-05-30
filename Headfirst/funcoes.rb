@@ -120,7 +120,7 @@ end
 # DEFINE A FORMA DE PAGAMENTO DA COMPRA E VÁLIDA A FORMA
 def escolher_forma_de_pagamento(total)
   puts "PAGAMENTO"
-  print"\n\n SELECIONE UMA FORMA DE PAGAMENTO [1 - CARTÃO DE DÉBITO] [2 - CARTÃO DE CRÉDITO] [3 - BOLETO]: "
+  print"\nSELECIONE UMA FORMA DE PAGAMENTO [1 - CARTÃO DE DÉBITO] [2 - CARTÃO DE CRÉDITO] [3 - BOLETO]: "
   decisao_cliente = validar_entrada(3)
 
   if decisao_cliente == 1
@@ -188,7 +188,11 @@ def validar_dados_do_cartao
       print "CÓDIGO DE SEGURANÇA (3 Dígitos): "
       codigo_seguranca_cartao = gets.chomp.strip
 
-      valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3 && mes_cartao_vencimento.to_i >= mes_atual && ano_cartao_vencimento.to_i >= ano_atual 
+      if ano_atual < ano_cartao_vencimento.to_i
+        valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3  
+      else
+        valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3 && mes_cartao_vencimento.to_i >= mes_atual && ano_cartao_vencimento.to_i >= ano_atual 
+      end 
 
       if not valido 
         puts "DADOS DO CARTÃO INVÁLIDO!"
