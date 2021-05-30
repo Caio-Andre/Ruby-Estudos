@@ -27,7 +27,7 @@ def adicionar_livros_banco_de_dados(estante)
             break
         end 
     end 
-    if livro_no_estoque = false
+    if livro_no_estoque == false
       print " INFORME O ID DO LIVRO: "
       id = gets.chomp.to_i
       print " INFORME O GENÊRO DO LIVRO: "
