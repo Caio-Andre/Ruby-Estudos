@@ -26,7 +26,7 @@ def finalizar_compras(carrinho)
     else
         cliente = fazer_cadastro
     end 
-    
+
     escolher_forma_de_pagamento(total)
 
     puts "\n\n\n\nVATAPÁ STORE"
@@ -40,7 +40,7 @@ def finalizar_compras(carrinho)
         app = false
     end 
 
-    ## ADICIONAR FORMAS DESCONTOS
+    ## ADICIONAR FORMAS DESCONTOS E CONSTRUIR FORMA DE REMOVER LIVRO DO ARQUIVO TXT
 
 
 end 

@@ -19,7 +19,7 @@ end
 
 class Cliente
 
-  attr_reader :nome, :dia_nascimento, :mes_nascimento, :ano_nascimento, :estado, :cidade, :numero, :cep, :e_mail, :senha, 
+  attr_reader :nome, :dia_nascimento, :mes_nascimento, :ano_nascimento, :estado, :cidade, :numero, :cep, :e_mail, :senha 
   attr_accessor :desconto
 
   def initialize(nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha)

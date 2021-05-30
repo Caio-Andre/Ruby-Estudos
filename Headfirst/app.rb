@@ -3,13 +3,14 @@ require_relative 'funcoes'
 require_relative 'interface_cliente'
 require_relative 'interface_finalizar_compra'
 require_relative 'cadastro'
+require_relative 'interface_funcionário'
 
 
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
 
-=begin
-app = true 
+
+app = true
 while app do
   puts "\nVATAPÁ STORE"
   print"
@@ -22,12 +23,12 @@ SELECIONE UMA OPÇÂO:"
   if decision == 1
     abrir_interface_cliente(estante)
   elsif decision == 2
-    adicionar_livros_banco_de_dados
+    abrir_interface_funcionario(estante)
   elsif decision == 3
     app = false
   end 
 end 
-=end 
+
 
 
 

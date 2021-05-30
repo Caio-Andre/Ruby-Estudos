@@ -14,29 +14,41 @@ end
 
 
 # ADICIONA NOVOS LIVROS NO BANCO
-def adicionar_livros_banco_de_dados
+def adicionar_livros_banco_de_dados(estante)
+  
   while true
-    print "Por favor, informe o id do livro: "
-    id = gets.chomp.to_i
-    print "Por favor, informe o gênero do livro: "
-    genero = gets.chomp
-    print "Por favor, informe o título do livro: "
-    titulo = gets.chomp
-    print "Por favor, informe o autor do livro: "
-    autor = gets.chomp
-    print "Por favor, informe o número de páginas do livro: "
-    paginas = gets.chomp.to_i
-    print "Por favor, informe o preço do livro: "
-    preco = gets.chomp.to_f
+    print "ESCREVA O TÍTULO DO LIVRO: "
+    titulo_livro = gets.chomp.strip.upcase
+    livro_no_estoque = false 
+    for livro in estante.livros 
+        if livro.titulo == titulo_livro
+            puts "LIVRO JÁ EXISTENTE NO ESTOQUE"
+            livro_no_estoque = true
+            break
+        end 
+    end 
+    if livro_no_estoque = false
+      print " INFORME O ID DO LIVRO: "
+      id = gets.chomp.to_i
+      print " INFORME O GENÊRO DO LIVRO: "
+      genero = gets.chomp
+      print " INFORME O TÍTULO DO LIVRO: "
+      titulo = gets.chomp
+      print " INFORME O AUTOR DO LIVRO: "
+      autor = gets.chomp
+      print " INFORME O NÚMERO DE PÁGINAS DO LIVRO: "
+      paginas = gets.chomp.to_i
+      print "INFORME O PREÇO DO LIVRO: "
+      preco = gets.chomp.to_f
 
-    File.open("banco_de_dados_livros.txt", "a") do |arquivo|
-      arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
-    end
-    
-    puts "Livro adicionado com sucesso!"
-    puts "Você deseja adicionar mais livros?"
-    puts "Se você não deseja adicionar mais livros, digite 'N'."
-    if gets.chomp.upcase == 'N'
+      File.open("banco_de_dados_livros.txt", "a") do |arquivo|
+        arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
+      end
+      puts "LIVRO ADICIONADO COM SUCESSO!"
+    end 
+    puts "\nVOCÊ DESEJA ADICIONAR UM LIVRO DIFERENTE [Sim - 1] [Não - 2]: "
+    decisao_funcionario = validar_entrada(2)
+    if decisao_funcionario == 2
       break
     end
   end
