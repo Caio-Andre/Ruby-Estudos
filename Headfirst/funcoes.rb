@@ -95,7 +95,7 @@ E-MAIL: [#{e_mail}]""")
     next if decisao_cliente == 2
         
     File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
-      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}")
+      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{@desconto}")
     end
 
     puts "CADASTRO REALIZADO COM SUCESSO!"
