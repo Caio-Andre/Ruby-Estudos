@@ -15,7 +15,6 @@ end
 
 # ADICIONA NOVOS LIVROS NO BANCO
 def adicionar_livros_banco_de_dados(estante)
-  
   while true
     print "INFORME O TÍTULO DO LIVRO: "
     titulo = gets.chomp.strip.upcase
