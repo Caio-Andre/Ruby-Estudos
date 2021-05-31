@@ -5,10 +5,8 @@ require_relative 'interface_finalizar_compra'
 require_relative 'cadastro'
 require_relative 'interface_funcionário'
 
-
 # CRIA A ESTANTE DE LIVROS
 estante = Estante.new(carregar_livros)
-
 
 app = true
 while app do
@@ -17,7 +15,7 @@ while app do
 [1] CLIENTE
 [2] FUNCIONÁRIO VATAPÀ
 [3] SAIR DA LOJA
-SELECIONE UMA OPÇÂO:"
+SELECIONE UMA OPÇÂO: "
 
   decision = validar_entrada(3)
   if decision == 1

@@ -17,26 +17,23 @@ end
 def adicionar_livros_banco_de_dados(estante)
   
   while true
-    print "ESCREVA O TÍTULO DO LIVRO: "
-    titulo_livro = gets.chomp.strip.upcase
+    print "INFORME O TÍTULO DO LIVRO: "
+    titulo = gets.chomp.strip.upcase
     livro_no_estoque = false 
     for livro in estante.livros 
-        if livro.titulo == titulo_livro
-            puts "LIVRO JÁ EXISTENTE NO ESTOQUE"
+        if livro.titulo == titulo
+            puts "\nLIVRO JÁ EXISTENTE NO ESTOQUE" 
             livro_no_estoque = true
             break
         end 
     end 
-    if livro_no_estoque = false
-      print " INFORME O ID DO LIVRO: "
-      id = gets.chomp.to_i
-      print " INFORME O GENÊRO DO LIVRO: "
-      genero = gets.chomp
-      print " INFORME O TÍTULO DO LIVRO: "
-      titulo = gets.chomp
-      print " INFORME O AUTOR DO LIVRO: "
-      autor = gets.chomp
-      print " INFORME O NÚMERO DE PÁGINAS DO LIVRO: "
+    if livro_no_estoque == false
+      id = gerar_id_disponível(estante)
+      print "INFORME O GENÊRO DO LIVRO: "
+      genero = gets.chomp.upcase
+      print "INFORME O AUTOR DO LIVRO: "
+      autor = gets.chomp.upcase
+      print "INFORME O NÚMERO DE PÁGINAS DO LIVRO: "
       paginas = gets.chomp.to_i
       print "INFORME O PREÇO DO LIVRO: "
       preco = gets.chomp.to_f
@@ -54,6 +51,48 @@ def adicionar_livros_banco_de_dados(estante)
   end
 end 
 
+def remover_livros_banco_de_dados(estante)
+  while true do
+    print "INDIQUE UMA INFORMAÇÃO DO LIVRO A SER REMOVIDO(Título/Gênero/Autor): "
+    filtro = gets.chomp.strip.upcase
+    livros_a_serem_removidos = estante.filtrar(filtro)
+    if livros_a_serem_removidos != nil
+      puts livros_a_serem_removidos
+    else
+      print "\nVOCÊ DESEJA PROCURAR POR OUTRO LIVRO [Sim - 1][Não - 2]: "
+      decisao_funcionario = validar_entrada(2)
+      if decisao_funcionario == 1
+        next
+      else
+        break
+      end 
+    end  
+    print "INFORME O ID DO LIVRO A SER REMOVIDO: "
+    id = gets.chomp.to_i
+    for livro in estante.livros
+      if livro.id == id 
+        estante.livros.delete(livro)
+        puts 
+      end 
+    end 
+    puts estante.livros
+      File.open("banco_de_dados_livros.txt", "w") do |arquivo|
+      end
+    for livro in estante.livros
+      File.open("banco_de_dados_livros.txt", "a") do |arquivo|
+        arquivo.puts("#{livro.id}|#{livro.genero}|#{livro.titulo}|#{livro.autor}|#{livro.paginas}|#{livro.preco}")
+      end
+    end 
+    print "VOCÊ QUER REMOVER OUTRO LIVRO: [Sim - 1] [Não - 2]: "
+    decisao_funcionario = validar_entrada(2)
+    if decisao_funcionario == 1
+      next
+    else
+      break
+    end 
+  end 
+    
+end 
 
 # CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
 def calcular_valor_final(subtotal)
@@ -215,3 +254,18 @@ def validar_dados_do_cartao
 
 end 
 
+
+def gerar_id_disponível(estante)
+  ids_invalidos = []
+  for livro in estante.livros
+    ids_invalidos << livro.id
+  end 
+  id_valido = 0
+  while true
+    if not ids_invalidos.include? id_valido
+      return id_valido
+    else 
+      id_valido += 1
+    end 
+  end  
+end 

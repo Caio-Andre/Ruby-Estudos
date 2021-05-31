@@ -40,7 +40,5 @@ def finalizar_compras(carrinho)
         app = false
     end 
 
-    ## ADICIONAR FORMAS DESCONTOS E CONSTRUIR FORMA DE REMOVER LIVRO DO ARQUIVO TXT
-
-
+    ## ADICIONAR FORMAS DESCONTOS
 end 

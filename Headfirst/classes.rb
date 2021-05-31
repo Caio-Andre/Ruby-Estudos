@@ -227,6 +227,5 @@ class Carrinho
 
     end 
   end 
-
 end 
 
