@@ -95,17 +95,21 @@ end
 
 # CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
 def calcular_valor_final(subtotal)
-  puts "ESCOLHA SEU FRETE"
-  print """\n[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
+  Gem.win_platform? ? (system "cls") : (system "clear")
+  puts "\033[34;1m-=-" *4
+  puts "\033[32;1mVATAPÁ STORE\033[m"
+  puts "\033[34;1m-=-\033[m" *4
+  puts "\n\n\033[34;1m|ESCOLHA SEU FRETE|\033[m"
+  print """\n\033[;1m[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
 [2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
-FRETE: """
+FRETE: \033[m"""
   opção_frete_cliente = validar_entrada(2)
   if opção_frete_cliente == 1
     total = 25 + subtotal
-    puts "                                                                                      [TOTAL = R$#{total}]"
+    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
   else 
     total = 40 + subtotal
-    puts "                                                                                      [TOTAL = R$#{total}]"
+    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
   end 
   return total 
 end
@@ -242,8 +246,8 @@ def validar_id (lista_de_livros)
         return escolha_usuario_id
       end 
     end 
-    puts "\nOPÇÃO INVÁLIDA -- LIVRO NÃO FAZ PARTE DA LISTA"
-    print "\nINSIRA OUTRO ID : "
+    puts "\n\033[31;1mOPÇÃO INVÁLIDA -- LIVRO NÃO FAZ PARTE DA LISTA\033[m"
+    print "\n\033[;1mINSIRA OUTRO ID: \033[m"
     escolha_usuario_id = gets.chomp.strip.to_i
   end 
 end 
