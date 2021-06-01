@@ -154,8 +154,11 @@ class Carrinho
     print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: "
     decisao_cliente = validar_entrada(2)
     if decisao_cliente == 1
+      # Adicionar cor mais tarde
+      puts subtotal
       return subtotal - cliente.desconto
     else
+      puts subtotal
       return subtotal
     end
   end 
