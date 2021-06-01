@@ -1,11 +1,9 @@
 require_relative 'classes'
 
+# HAS CHANGED
 def finalizar_compras(carrinho)
     
     puts "\n\n"
-    total = calcular_valor_final(carrinho.calcular_subtotal)
-    puts "\n\n"
-    
     print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
     decisao_cliente_cadastro = validar_entrada(2)
     if decisao_cliente_cadastro == 1
@@ -25,7 +23,11 @@ def finalizar_compras(carrinho)
         
     else
         cliente = fazer_cadastro
-    end 
+    end
+    
+    #HERE
+    puts "\n\n"
+    total = calcular_valor_final(carrinho.calcular_subtotal(cliente))
 
     escolher_forma_de_pagamento(total)
 

@@ -23,7 +23,7 @@ class Cliente
   attr_accessor :desconto
 
   def initialize(nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha)
-    @nome, @dia_nascimento, @mes_nascimento, @ano_nascimento, @estado, @cidade, @numero, @cep, @e_mail, @senha, @desconto = nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail,  senha, 0
+    @nome, @dia_nascimento, @mes_nascimento, @ano_nascimento, @estado, @cidade, @numero, @cep, @e_mail, @senha = nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha
   end
 
   def to_s
@@ -143,14 +143,21 @@ class Carrinho
   def mostrar_lista_compras
     puts "\nLIVROS NO CARRINHO:", @lista_de_compras
   end 
-
-  def calcular_subtotal
+  
+  #HAS CHANGED
+  def calcular_subtotal(cliente)
     subtotal = 0
     for livro in @lista_de_compras
       subtotal += livro.preco 
-    end 
-    puts "\n                                                                                      [Subtotal = R$#{subtotal}]"
-    return subtotal
+    end
+    print "VOCÊ POSSUI UM DESCONTO DE RS#{cliente.desconto}"
+    print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: "
+    decisao_cliente = validar_entrada(2)
+    if decisao_cliente == 1
+      return subtotal - cliente.desconto
+    else
+      return subtotal
+    end
   end 
 
   def alterar_carrinho

@@ -108,8 +108,31 @@ FRETE: """
     puts "                                                                                      [TOTAL = R$#{total}]"
   end 
   return total 
+end
+
+
+#HAS CHANGED
+def atualizar_desconto_do_cliente(cliente)
+  while true do  
+      File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
+      end
+    for livro in estante.livros
+      File.open("banco_de_dados_livros.txt", "a") do |arquivo|
+        arquivo.puts("#{livro.id}|#{livro.genero}|#{livro.titulo}|#{livro.autor}|#{livro.paginas}|#{livro.preco}")
+      end
+    end 
+    print "VOCÊ QUER REMOVER OUTRO LIVRO: [Sim - 1] [Não - 2]: "
+    decisao_funcionario = validar_entrada(2)
+    if decisao_funcionario == 1
+      next
+    else
+      break
+    end 
+  end 
+    
 end 
 
+# HAS CHANGED
 # ADICIONA NOVOS LIVROS NO BANCO
 def adicionar_clientes_banco_de_dados
   while true
@@ -143,9 +166,9 @@ E-MAIL: [#{e_mail}]""")
     puts "SEUS DADOS ESTÃO CORRETOS [Sim - 1] [Não - 2]: "
     decisao_cliente = validar_entrada(2)
     next if decisao_cliente == 2
-        
+    # HERE   
     File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
-      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{@desconto}")
+      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{0}")
     end
 
     puts "CADASTRO REALIZADO COM SUCESSO!"
@@ -154,13 +177,20 @@ E-MAIL: [#{e_mail}]""")
   end
 end 
 
+# HAS CHANGED
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_dados_cliente(e_mail_cliente,senha_cliente)
   clientes = []
   File.open("banco_de_dados_clientes.txt") do |file|
     file.each do |line|
+      #HERE
       if e_mail_cliente == line.chomp.split("|")[8] && senha_cliente == line.chomp.split("|")[9]
-        clientes << Cliente.new(*line.chomp.split("|"))
+        dados_do_cliente = line.chomp.split("|")
+        descontao = dados_do_cliente.last.to_f
+        dados_do_cliente.delete(descontao)
+        fregues = Cliente.new(*dados_do_cliente)
+        fregues.desconto = descontao
+        clientes << fregues
       end
     end 
   end
