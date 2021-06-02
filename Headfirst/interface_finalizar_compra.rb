@@ -1,11 +1,11 @@
 require_relative 'classes'
 
 # HAS CHANGED
-def finalizar_compras(carrinho)
+def finalizar_compras(cliente,carrinho)
     
     #HERE
     puts "\n\n"
-    total = calcular_valor_final(carrinho.calcular_subtotal(cliente))
+    total = calcular_valor_final(carrinho.calcular_desconto(cliente))
 
     escolher_forma_de_pagamento(total)
 
@@ -20,5 +20,5 @@ def finalizar_compras(carrinho)
         app = false
     end 
 
-    ## ADICIONAR FORMAS DESCONTOS
+    ## CONSTRUIR PAGAMENTO POR BOLETO/ ADIOCIONAR SESSÃO DE LOGIN PARA O FUNCIONARIO/ ADIOCIONAR COR PARA A INTERFACE FUNCIONARIO. / ADIOCIONAR LIVROS / COMENTAR CODIGO
 end 

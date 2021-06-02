@@ -77,7 +77,7 @@ def abrir_interface_cliente(estante)
         end
         Gem.win_platform? ? (system "cls") : (system "clear")
         carrinho.mostrar_lista_compras
-        carrinho.calcular_subtotal(cliente)
+        carrinho.calcular_subtotal
         
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         
@@ -93,12 +93,12 @@ def abrir_interface_cliente(estante)
             if decisao_cliente == 1
                 next
             else
-                finalizar_compras(carrinho)
+                finalizar_compras(cliente,carrinho)
             end 
         elsif decisao_cliente == 2
             next
         else
-            finalizar_compras(carrinho)
+            finalizar_compras(cliente,carrinho)
         end 
     end 
 end 

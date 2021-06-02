@@ -264,6 +264,7 @@ def validar_id (lista_de_livros)
   end 
 end 
 
+# AVALIA AS ENTRADAS DOS USUARIO E DETERMINA SE O CARTAO E VALIDO
 def validar_dados_do_cartao 
   ano_atual = Time.new.year % 2000
   mes_atual = Time.new.month 

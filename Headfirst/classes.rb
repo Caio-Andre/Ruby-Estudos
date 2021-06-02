@@ -12,7 +12,7 @@ class Livro
   
   
     def to_s
-      "\n[\033[1;37mID:#{@id}] \033[1;32mGênero:#{@genero}|\033[1;32mTitulo:#{@titulo}|\033[1;32mAutor:#{@autor}|\033[1;33mNúmero de páginas:#{@paginas}|\033[1;31mPreço:R$#{@preco}\033[m"
+      "\n\033[1;37m[ID:#{@id}] \033[1;32mGênero:#{@genero}|\033[1;32mTitulo:#{@titulo}|\033[1;32mAutor:#{@autor}|\033[1;33mNúmero de páginas:#{@paginas}|\033[1;31mPreço:R$#{@preco}\033[m"
     end
   
 end
@@ -70,8 +70,8 @@ class Estante
 
   def filtrar_por_paginas
     livros_filtrados = []
-    puts "\nFILTRO: [1]0-100 PAGINAS  [2]100-200 PAGINAS  [3]200-300 PAGINAS  [4]+300 PAGINAS"
-    print "ESCOLHA UM FILTRO: "
+    puts "\n\033[34;1mFILTRO: [1]0-100 PAGINAS  [2]100-200 PAGINAS  [3]200-300 PAGINAS  [4]+300 PAGINAS\033[m"
+    print "\033[;1mESCOLHA UM FILTRO: \033[m"
 
     filtro_por_paginas_cliente = validar_entrada(4)
     
@@ -102,27 +102,28 @@ class Estante
   
   def selecionar_livros_desejados (livros_filtrados)
     livros_desejados = []
-    puts "LIVROS ENCONTRADOS:\n", livros_filtrados
-    print "\nVOCÊ DESEJA ADICIONAR ALGUM DESSES LIVROS NO CARRINHO [Sim - 1] [Não - 2]: "
+    puts "\033[34;1mLIVROS ENCONTRADOS:\033[m", livros_filtrados
+    print "\n\033[;1mVOCÊ DESEJA ADICIONAR ALGUM DESSES LIVROS NO CARRINHO [Sim - 1] [Não - 2]: \033[m"
     decisao = validar_entrada(2)
 
     if decisao == 2
       return livros_desejados
     else
       while decisao == 1 do
-        print "\nINDIQUE O LIVRO DESEJADO PELO ID:"
+        print "\n\033[;1mINDIQUE O LIVRO DESEJADO PELO ID: \033[m"
         id = validar_id(livros_filtrados)
         for livro in livros_filtrados
           if livro.id == id
             livros_desejados << livro
-            puts "LIVRO ADICIONADO AO CARRINHO"
+            puts "\033[32;1m!LIVRO ADICIONADO AO CARRINHO! \033[m"
           end 
         end 
 
-        print "\nVOCÊ QUE ADICIONAR OUTRO LIVRO [Sim - 1] [Não - 2]: "
+        print "\n\033[;1mVOCÊ QUE ADICIONAR OUTRO LIVRO [Sim - 1] [Não - 2]: \033[m"
         decisao = validar_entrada(2)
         if decisao == 1
-          puts "LIVROS ENCONTRADOS:\n", livros_filtrados
+          Gem.win_platform? ? (system "cls") : (system "clear")
+          puts "\033[34;1mLIVROS ENCONTRADOS:\033[m", livros_filtrados
         end 
       end 
     end
@@ -141,11 +142,11 @@ class Carrinho
   end
 
   def mostrar_lista_compras
-    puts "\nLIVROS NO CARRINHO:", @lista_de_compras
+    puts "\n\033[34;1mLIVROS NO CARRINHO: \033[m", @lista_de_compras
   end 
   
   #HAS CHANGED
-  def calcular_subtotal(cliente)
+  def calcular_desconto(cliente)
     subtotal = 0
     for livro in @lista_de_compras
       subtotal += livro.preco 
@@ -158,8 +159,8 @@ class Carrinho
       puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{subtotal}]\033[m"
       return subtotal
     end 
-    print "VOCÊ POSSUI UM DESCONTO DE RS#{cliente.desconto} "
-    print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: "
+    print "\033[;1mVOCÊ POSSUI UM DESCONTO DE RS#{cliente.desconto} "
+    print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: \033[m"
     decisao_cliente = validar_entrada(2)
     if decisao_cliente == 1
       subtotal -= cliente.desconto
@@ -178,17 +179,27 @@ class Carrinho
     end
   end 
 
+  def calcular_subtotal
+    subtotal = 0
+    for livro in @lista_de_compras
+      subtotal += livro.preco 
+    end 
+    puts "\n\033[31;1m                                                                                      [Subtotal = R$#{subtotal}]\033[m"
+    return subtotal
+  end
+
   def alterar_carrinho
-    puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+    Gem.win_platform? ? (system "cls") : (system "clear")
+    puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
     calcular_subtotal
     while true do
-      print "\nVOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: "
+      print "\n\033[;1mVOCÊ DESEJA MUDAR A QUANTIDADE DE UM LIVRO OU REMOVÊ-LO [Quantidade - 1] [Remover - 2]: \033[m"
       decisao_cliente = validar_entrada(2)
       if decisao_cliente == 1
         while true do 
-          print "\nINDIQUE O LIVRO  PELO ID:"
+          print "\n\033[;1mINDIQUE O LIVRO  PELO ID: \033[m"
           id = validar_id(@lista_de_compras)
-          print "ADICIONAR QUANTOS EXEMPLARES: "
+          print "\033[;1mADICIONAR QUANTOS EXEMPLARES: \033[m"
           quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
           contador = 0
           for livro in @lista_de_compras
@@ -200,23 +211,27 @@ class Carrinho
               end
             end
           end
-          
-          puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+          sleep(0.5)
+          Gem.win_platform? ? (system "cls") : (system "clear")
+          puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
           calcular_subtotal
-          print "VOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: "
+          print "\033[;1mVOCÊ DESEJA ALTERAR A QUANTIDADE DE OUTRO LIVRO [Sim - 1] [Não - 2]: \033[;1m"
           decisao_cliente = validar_entrada(2)
-          puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
-          calcular_subtotal
           if decisao_cliente == 2
             break
           end
+          puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
+          calcular_subtotal
         end 
       
       else
         while true do
-            print "\nINDIQUE O LIVRO PARA SER REMOVIDO PELO ID: "
+            Gem.win_platform? ? (system "cls") : (system "clear")
+            puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
+            calcular_subtotal
+            print"\n\033[;1mINDIQUE O LIVRO PARA SER REMOVIDO PELO ID: \033[m"
             id = validar_id(@lista_de_compras)
-            print "REMOVER QUANTOS EXEMPLARES: "
+            print "\033[;1mREMOVER QUANTOS EXEMPLARES: \033[m"
             quantidade_de_exemplares = gets.chomp.strip.to_i
             contador = 0
             for livro in @lista_de_compras
@@ -224,27 +239,29 @@ class Carrinho
                 if contador < quantidade_de_exemplares
                   indice = @lista_de_compras.index(livro)
                   @lista_de_compras.delete_at(indice)
-                  puts "LIVRO REMOVIDO DO CARRINHO"
+                  puts "\033[31;1m!LIVRO REMOVIDO DO CARRINHO!\033[m"
                   contador += 1
                 else 
                   break 
                 end 
               end 
             end
-            
-            puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
+            sleep(0.5)
+            puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[34;1m", @lista_de_compras
             calcular_subtotal
-            print "VOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: "
+            print "\033[;1mVOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: \033[m"
             decisao = validar_entrada(2)
-            puts "\nLIVROS NO CARRINHO:\n", @lista_de_compras
-            calcular_subtotal
             if decisao == 2
               break
             end 
+            Gem.win_platform? ? (system "cls") : (system "clear")
+            puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
+            calcular_subtotal
+            
         end 
       end 
 
-      print "\nVOCÊ DESEJA FAZER MAIS ALGUMA ALTERÇÃO NO CARRINHO [Sim - 1] [Não - 2]: "
+      print "\n\033[;1mVOCÊ DESEJA FAZER MAIS ALGUMA ALTERÇÃO NO CARRINHO [Sim - 1] [Não - 2]: \033[m"
       decisao = validar_entrada(2)
       if decisao == 2
           break
