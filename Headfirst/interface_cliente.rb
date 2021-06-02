@@ -1,8 +1,11 @@
 
 
 def abrir_interface_cliente(estante)
-    puts "\n\n"
-    print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
+    Gem.win_platform? ? (system "cls") : (system "clear")
+    puts "\033[34;1m-=-" *4
+    puts "\033[32;1mVATAPÁ STORE\033[m"
+    puts "\033[34;1m-=-\033[m\033[m" *4
+    print "\n\033[;1m[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
     decisao_cliente_cadastro = validar_entrada(2)
     if decisao_cliente_cadastro == 1
         while true do
@@ -75,7 +78,7 @@ def abrir_interface_cliente(estante)
         Gem.win_platform? ? (system "cls") : (system "clear")
         carrinho.mostrar_lista_compras
         carrinho.calcular_subtotal(cliente)
-       
+        
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         
         print "\n\033[;1mVOCÊ DESEJA  [1 - ALTERAR O CARRINHO] [2 - CONTINUAR COMPRANDO] OU [3 - FINALIZAR COMPRA]: \033[m"

@@ -93,38 +93,37 @@ def remover_livros_banco_de_dados(estante)
     
 end 
 
-# CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
-def calcular_valor_final(subtotal)
-  Gem.win_platform? ? (system "cls") : (system "clear")
-  puts "\033[34;1m-=-" *4
-  puts "\033[32;1mVATAPÁ STORE\033[m"
-  puts "\033[34;1m-=-\033[m" *4
-  puts "\n\n\033[34;1m|ESCOLHA SEU FRETE|\033[m"
-  print """\n\033[;1m[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
-[2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
-FRETE: \033[m"""
-  opção_frete_cliente = validar_entrada(2)
-  if opção_frete_cliente == 1
-    total = 25 + subtotal
-    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
-  else 
-    total = 40 + subtotal
-    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
-  end 
-  return total 
-end
+
 
 
 #HAS CHANGED
-def atualizar_desconto_do_cliente(cliente)
-  while true do  
-    File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
-    end
-    for livro in estante.livros
-      File.open("banco_de_dados_livros.txt", "a") do |arquivo|
-        arquivo.puts("#{livro.id}|#{livro.genero}|#{livro.titulo}|#{livro.autor}|#{livro.paginas}|#{livro.preco}")
-      end
+def atualizar_desconto_do_cliente(cliente_com_desconto_atualizado)
+  clientes = []
+  File.open("banco_de_dados_clientes.txt") do |file|
+    file.each do |line|
+      dados_do_cliente = line.chomp.split("|")
+      descontao = dados_do_cliente.last
+      dados_do_cliente.delete(descontao)
+      fregues = Cliente.new(*dados_do_cliente)
+      fregues.desconto = descontao.to_f
+      clientes << fregues
     end 
+  end
+
+  for cliente_com_desconto_desatualizado in clientes
+    if cliente_com_desconto_desatualizado.senha == cliente_com_desconto_atualizado.senha && cliente_com_desconto_desatualizado.e_mail == cliente_com_desconto_atualizado.e_mail
+      clientes.delete(cliente_com_desconto_desatualizado)
+      clientes << cliente_com_desconto_atualizado
+    end
+  end
+
+  File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
+  end
+
+  for cliente in clientes
+    File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
+      arquivo.puts("#{cliente.nome}|#{cliente.dia_nascimento}|#{cliente.mes_nascimento}|#{cliente.ano_nascimento}|#{cliente.estado}|#{cliente.cidade}|#{cliente.numero}|#{cliente.cep}|#{cliente.e_mail}|#{cliente.senha}|#{cliente.desconto}")
+    end
   end 
 end 
 
@@ -164,7 +163,7 @@ E-MAIL: [#{e_mail}]""")
     next if decisao_cliente == 2
     # HERE   
     File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
-      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{0}")
+      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{0.0}")
     end
 
     puts "CADASTRO REALIZADO COM SUCESSO!"
@@ -190,6 +189,27 @@ def carregar_dados_cliente(e_mail_cliente,senha_cliente)
     end 
   end
   return fregues
+end
+
+# CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
+def calcular_valor_final(subtotal)
+  Gem.win_platform? ? (system "cls") : (system "clear")
+  puts "\033[34;1m-=-" *4
+  puts "\033[32;1mVATAPÁ STORE\033[m"
+  puts "\033[34;1m-=-\033[m" *4
+  puts "\n\n\033[34;1m|ESCOLHA SEU FRETE|\033[m"
+  print """\n\033[;1m[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
+[2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
+FRETE: \033[m"""
+  opção_frete_cliente = validar_entrada(2)
+  if opção_frete_cliente == 1
+    total = 25 + subtotal
+    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
+  else 
+    total = 40 + subtotal
+    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
+  end 
+  return total 
 end
 
 
@@ -243,8 +263,6 @@ def validar_id (lista_de_livros)
     escolha_usuario_id = gets.chomp.strip.to_i
   end 
 end 
-
-
 
 def validar_dados_do_cartao 
   ano_atual = Time.new.year % 2000
