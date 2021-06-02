@@ -1,6 +1,28 @@
 
 
 def abrir_interface_cliente(estante)
+    puts "\n\n"
+    print "[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
+    decisao_cliente_cadastro = validar_entrada(2)
+    if decisao_cliente_cadastro == 1
+        while true do
+            puts "LOGIN"
+            print "SEU E-MAIL: "
+            e_mail_cliente = gets.chomp.strip
+            print "DIGITE SUA SENHA: "
+            senha_cliente = gets.chomp.strip
+            cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
+            if cliente == []
+                puts "SEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!"
+                next
+            end 
+            break
+        end 
+        
+    else
+        cliente = fazer_cadastro
+    end
+
     Gem.win_platform? ? (system "cls") : (system "clear")
     # Cria o carrinho de compras
     carrinho = Carrinho.new
@@ -52,7 +74,7 @@ def abrir_interface_cliente(estante)
         end
         Gem.win_platform? ? (system "cls") : (system "clear")
         carrinho.mostrar_lista_compras
-        carrinho.calcular_subtotal
+        carrinho.calcular_subtotal(cliente)
        
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         

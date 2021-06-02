@@ -118,22 +118,14 @@ end
 #HAS CHANGED
 def atualizar_desconto_do_cliente(cliente)
   while true do  
-      File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
-      end
+    File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
+    end
     for livro in estante.livros
       File.open("banco_de_dados_livros.txt", "a") do |arquivo|
         arquivo.puts("#{livro.id}|#{livro.genero}|#{livro.titulo}|#{livro.autor}|#{livro.paginas}|#{livro.preco}")
       end
     end 
-    print "VOCÊ QUER REMOVER OUTRO LIVRO: [Sim - 1] [Não - 2]: "
-    decisao_funcionario = validar_entrada(2)
-    if decisao_funcionario == 1
-      next
-    else
-      break
-    end 
   end 
-    
 end 
 
 # HAS CHANGED
@@ -184,22 +176,22 @@ end
 # HAS CHANGED
 # LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_dados_cliente(e_mail_cliente,senha_cliente)
-  clientes = []
+  fregues = nil
   File.open("banco_de_dados_clientes.txt") do |file|
     file.each do |line|
       #HERE
       if e_mail_cliente == line.chomp.split("|")[8] && senha_cliente == line.chomp.split("|")[9]
         dados_do_cliente = line.chomp.split("|")
-        descontao = dados_do_cliente.last.to_f
+        descontao = dados_do_cliente.last
         dados_do_cliente.delete(descontao)
         fregues = Cliente.new(*dados_do_cliente)
-        fregues.desconto = descontao
-        clientes << fregues
-      end
+        fregues.desconto = descontao.to_f
+      end 
     end 
   end
-  return clientes
+  return fregues
 end
+
 
 # DEFINE A FORMA DE PAGAMENTO DA COMPRA E VÁLIDA A FORMA
 def escolher_forma_de_pagamento(total)

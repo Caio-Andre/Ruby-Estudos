@@ -16,7 +16,7 @@ while app do
   puts "\033[34;1m-=-\033[m" *4
   print"\033[34;1m
 [1] CLIENTE
-[2] FUNCIONÁRIO VATAPÀ
+[2] FUNCIONÁRIO VATAPÁ
 [3] SAIR DA LOJA
 
 \033[;1mSELECIONE UMA OPÇÂO: \033[m"
