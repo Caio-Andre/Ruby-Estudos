@@ -53,7 +53,7 @@ class Funcionario
     end
   end
 
-  def self.logar 
+  def Funcionario.logar 
     while true do
       puts "\n\033[1;mLOGIN"
       print "SEU E-MAIL: "
