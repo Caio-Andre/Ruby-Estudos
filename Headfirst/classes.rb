@@ -197,7 +197,7 @@ class Carrinho
       decisao_cliente = validar_entrada(2)
       if decisao_cliente == 1
         while true do 
-          print "\n\033[;1mINDIQUE O LIVRO  PELO ID: \033[m"
+          print "\n\033[;1mINDIQUE O LIVRO PELO ID: \033[m"
           id = validar_id(@lista_de_compras)
           print "\033[;1mADICIONAR QUANTOS EXEMPLARES: \033[m"
           quantidade_de_exemplares = gets.chomp.strip.to_i ## substituir por uma validacao
