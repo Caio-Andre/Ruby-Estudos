@@ -35,6 +35,40 @@ E-MAIL: [#{@e_mail}]"""
 
 end
 
+class Funcionario
+  attr_accessor :e_mail, :senha
+
+  @@funcionarios = []
+
+  def initialize(e_mail,senha)
+    @e_mail, @senha = e_mail, senha 
+  end 
+
+  def carregar_dados_dos_funcionarios
+    File.open("banco_de_dados_funcionarios.txt") do |file|
+      file.each do |line|
+        e_mail, senha = line.chomp.split("|")
+        @@funcionarios << Funcionario.new(e_mail,senha)
+      end 
+    end
+  end
+
+  def self.logar 
+    while true do
+      puts "\n\033[1;mLOGIN"
+      print "SEU E-MAIL: "
+      e_mail = gets.chomp.strip
+      print "DIGITE SUA SENHA: \033[m"
+      senha = gets.chomp.strip
+      funcionario = self.new(e_mail,senha)
+      funcionario.carregar_dados_dos_funcionarios
+      if @@funcionarios.include? 
+        puts "\033[32;1mESTOQUE\033[m"
+      end 
+    end 
+  end  
+end 
+
 class Estante
   attr_accessor :livros
   def initialize (livros)
