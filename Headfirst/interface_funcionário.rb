@@ -1,11 +1,12 @@
 def abrir_interface_funcionario(estante)
     Gem.win_platform? ? (system "cls") : (system "clear")
     
-    arquivo = File.open("banco_de_dados_funcionrios.txt")
+    arquivo = File.open("banco_de_dados_funcionarios.txt") do |file|
     dados_dos_funcionarios = arquivo.readlines
     arquivo.close
     
-    Funcionario.
+    funcionario = Funcionario.carregar_dados_dos_funcionarios(dados_dos_funcionarios)
+    funcionario.logar
 
     while true 
         print "\nVOCÊ DESEJA ADICIONAR OU REMOVER ALGUM LIVRO [Adicionar - 1] [Remover - 2] [Sair - 3]: "

@@ -48,6 +48,7 @@ class Funcionario
     arquivo.each do |line|
         @@funcionarios << line
     end
+    return self
   end
 
   def Funcionario.logar(dados_dos_funcionarios) 
@@ -57,20 +58,14 @@ class Funcionario
       e_mail = gets.chomp.strip
       print "DIGITE SUA SENHA: \033[m"
       senha = gets.chomp.strip
+      #self.arquivo = dados_dos_funcionarios
+      #funcionario.carregar_dados_dos_funcionarios(arquivo)
       for dados in @@funcionarios
         e_mail_total, senha_total = dados.split("|")
         if e_mail_total == e_mail && senha == senha_total
           return self.new(e_mail, senha)
         end
       end
-      if 
-      funcionario = self.new(e_mail,senha)
-      self.arquivo = file
-      funcionario.carregar_dados_dos_funcionarios
-      puts "#{@@funcionarios}"
-      if @@funcionarios.include? funcionario
-        puts "\033[32;1mESTOQUE\033[m"
-      end 
     end 
   end  
 end 
