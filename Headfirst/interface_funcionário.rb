@@ -2,7 +2,7 @@ def abrir_interface_funcionario(estante)
     Gem.win_platform? ? (system "cls") : (system "clear")
     
     
-    Funcionario.logar
+    Funcionario.logar("banco_de_dados_funcionarios")
 
     while true 
         print "\nVOCÊ DESEJA ADICIONAR OU REMOVER ALGUM LIVRO [Adicionar - 1] [Remover - 2] [Sair - 3]: "

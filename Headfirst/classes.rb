@@ -40,29 +40,31 @@ class Funcionario
 
   @@funcionarios = []
 
-  def initialize(e_mail,senha)
-    @e_mail, @senha = e_mail, senha 
+  def initialize(e_mail,senha,file)
+    @e_mail, @senha, @file = e_mail, senha, file 
   end 
 
-  def carregar_dados_dos_funcionarios
-    File.open("banco_de_dados_funcionarios.txt") do |file|
+  def carregar_dados_dos_funcionarios(dados_dos_funcionarios)
+    File.open(@file) do |file|
       file.each do |line|
         e_mail, senha = line.chomp.split("|")
-        @@funcionarios << Funcionario.new(e_mail,senha)
+        @@funcionarios << Funcionario.new(e_mail,senha,time_user=Time.now)
+        puts "Funcionario adicionado"
       end 
     end
   end
 
-  def Funcionario.logar 
+  def Funcionario.logar(file) 
     while true do
       puts "\n\033[1;mLOGIN"
       print "SEU E-MAIL: "
       e_mail = gets.chomp.strip
       print "DIGITE SUA SENHA: \033[m"
       senha = gets.chomp.strip
-      funcionario = self.new(e_mail,senha)
+      funcionario = self.new(e_mail,senha,file)
       funcionario.carregar_dados_dos_funcionarios
-      if @@funcionarios.include? 
+      puts "#{@@funcionarios}"
+      if @@funcionarios.include? funcionario
         puts "\033[32;1mESTOQUE\033[m"
       end 
     end 
