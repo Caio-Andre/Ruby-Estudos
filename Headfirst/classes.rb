@@ -44,30 +44,38 @@ class Funcionario
     @e_mail, @senha = e_mail, senha 
   end 
 
-  def Funcionario.carregar_dados_dos_funcionarios(arquivo)
-    arquivo.each do |line|
-        @@funcionarios << line
-    end
-    return self
-  end
 
-  def Funcionario.logar(dados_dos_funcionarios) 
+  def self.logar
+    File.open("banco_de_dados_funcionarios.txt") do |file|
+      file.each do |line| 
+        @@funcionarios << line
+      end 
+    end
+  
     while true do
       puts "\n\033[1;mLOGIN"
       print "SEU E-MAIL: "
       e_mail = gets.chomp.strip
       print "DIGITE SUA SENHA: \033[m"
       senha = gets.chomp.strip
-      #self.arquivo = dados_dos_funcionarios
-      #funcionario.carregar_dados_dos_funcionarios(arquivo)
+      
       for dados in @@funcionarios
         e_mail_total, senha_total = dados.split("|")
         if e_mail_total == e_mail && senha == senha_total
-          return self.new(e_mail, senha)
-        end
+          return Funcionario.new(e_mail, senha)
+        else
+          puts "\n\033[31;1mE-MAIL OU SENHA INCORRETO"
+        end 
       end
     end 
   end  
+
+
+  def registrar_entrada_do_funcionario
+    File.open("registro_de_login.txt", "a") do |arquivo|
+      arquivo.puts("#{@e_mail}|#{Time.now}")
+    end
+  end
 end 
 
 class Estante
