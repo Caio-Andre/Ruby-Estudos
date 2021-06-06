@@ -89,8 +89,6 @@ E-MAIL: [#{e_mail}]""")
   end
 end 
 
-# HAS CHANGED
-# LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
 def carregar_dados_cliente(e_mail_cliente,senha_cliente)
   fregues = nil
   File.open("banco_de_dados_clientes.txt") do |file|

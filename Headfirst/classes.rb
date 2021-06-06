@@ -36,32 +36,36 @@ E-MAIL: [#{@e_mail}]"""
 end
 
 class Funcionario
-  attr_accessor :e_mail, :senha
+  attr_accessor :e_mail, :senha, :arquivo
 
   @@funcionarios = []
 
-  def initialize(e_mail,senha,file)
-    @e_mail, @senha, @file = e_mail, senha, file 
+  def initialize(e_mail,senha)
+    @e_mail, @senha = e_mail, senha 
   end 
 
-  def carregar_dados_dos_funcionarios(dados_dos_funcionarios)
-    File.open(@file) do |file|
-      file.each do |line|
-        e_mail, senha = line.chomp.split("|")
-        @@funcionarios << Funcionario.new(e_mail,senha,time_user=Time.now)
-        puts "Funcionario adicionado"
-      end 
+  def Funcionario.carregar_dados_dos_funcionarios(arquivo)
+    arquivo.each do |line|
+        @@funcionarios << line
     end
   end
 
-  def Funcionario.logar(file) 
+  def Funcionario.logar(dados_dos_funcionarios) 
     while true do
       puts "\n\033[1;mLOGIN"
       print "SEU E-MAIL: "
       e_mail = gets.chomp.strip
       print "DIGITE SUA SENHA: \033[m"
       senha = gets.chomp.strip
-      funcionario = self.new(e_mail,senha,file)
+      for dados in @@funcionarios
+        e_mail_total, senha_total = dados.split("|")
+        if e_mail_total == e_mail && senha == senha_total
+          return self.new(e_mail, senha)
+        end
+      end
+      if 
+      funcionario = self.new(e_mail,senha)
+      self.arquivo = file
       funcionario.carregar_dados_dos_funcionarios
       puts "#{@@funcionarios}"
       if @@funcionarios.include? funcionario
