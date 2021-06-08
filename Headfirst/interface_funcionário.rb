@@ -6,6 +6,7 @@ def abrir_interface_funcionario
     Funcionario.logar.registrar_entrada_do_funcionario
 
     while true 
+      Gem.win_platform? ? (system "cls") : (system "clear")
         print "\n\033[34;1mVOCÊ DESEJA ADICIONAR OU REMOVER ALGUM LIVRO [Adicionar - 1] [Remover - 2] [Sair - 3]: \033[m"
         decisao_funcionario = validar_entrada(3)
         if decisao_funcionario == 1
@@ -50,7 +51,7 @@ def adicionar_livros_banco_de_dados(estante)
         end
         puts "\n\033[32;1mLIVRO ADICIONADO COM SUCESSO!\033[m"
       end 
-      puts "\nVOCÊ DESEJA ADICIONAR UM LIVRO DIFERENTE [Sim - 1] [Não - 2]: "
+      puts "\n\033[;1mVOCÊ DESEJA ADICIONAR UM LIVRO DIFERENTE [Sim - 1] [Não - 2]: \033[m"
       decisao_funcionario = validar_entrada(2)
       if decisao_funcionario == 2
         break
@@ -61,7 +62,7 @@ def adicionar_livros_banco_de_dados(estante)
 def remover_livros_banco_de_dados(estante)
   Gem.win_platform? ? (system "cls") : (system "clear")
     while true do
-      print "\033[mINDIQUE UMA INFORMAÇÃO DO LIVRO A SER REMOVIDO(Título/Gênero/Autor): "
+      print "\033[;1mINDIQUE UMA INFORMAÇÃO DO LIVRO A SER REMOVIDO(Título/Gênero/Autor): "
       filtro = gets.chomp.strip.upcase
       livros_a_serem_removidos = estante.filtrar(filtro)
       if livros_a_serem_removidos != nil
@@ -75,7 +76,7 @@ def remover_livros_banco_de_dados(estante)
           break
         end 
       end  
-      print "\033[;1mINFORME O ID DO LIVRO A SER REMOVIDO: \033[m"
+      print "\n\033[;1mINFORME O ID DO LIVRO A SER REMOVIDO: \033[m"
       id = gets.chomp.to_i
       for livro in estante.livros
         if livro.id == id 

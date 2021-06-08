@@ -119,10 +119,10 @@ FRETE: \033[m"""
   opção_frete_cliente = validar_entrada(2)
   if opção_frete_cliente == 1
     total = 25 + subtotal
-    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
+    puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
   else 
     total = 40 + subtotal
-    puts "\033[32;1m                                                                                      [TOTAL = R$#{total}]\033[m"
+    puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
   end 
   return total 
 end
@@ -247,8 +247,6 @@ def validar_id (lista_de_livros)
     escolha_usuario_id = gets.chomp.strip.to_i
   end 
 end 
-
-
 
 
 def gerar_id_disponível(estante)

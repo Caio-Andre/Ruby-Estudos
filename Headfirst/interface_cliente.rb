@@ -1,5 +1,4 @@
 
-
 def abrir_interface_cliente
     Gem.win_platform? ? (system "cls") : (system "clear")
 
@@ -18,7 +17,7 @@ def abrir_interface_cliente
             print "\033[;1mDIGITE SUA SENHA: \033[m"
             senha_cliente = gets.chomp.strip
             cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
-            if cliente == []
+            if cliente == nil
                 puts "\033[31;1mSEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!\033[m"
                 next
             end 
@@ -35,7 +34,7 @@ def abrir_interface_cliente
     puts "\033[34;1m-=-" *4
     puts "\033[32;1mVATAPÁ STORE\033[m"
     puts "\033[34;1m-=-\033[m" *4
-    puts "Bem Vindo à maior loja de livros do Norte!\033[m"
+    puts "\033[;1Bem Vindo à maior loja de livros do Norte!\033[m"
     while true 
         print "\033[34;1m
 [1] PROCURAR LIVRO POR TITULO [2] PROCURAR LIVRO POR AUTOR 
@@ -84,7 +83,7 @@ def abrir_interface_cliente
         
         # Essa parte vai servir para finalizar as compras se o usuário quiser 
         
-        print "\n\033[;1mVOCÊ DESEJA  [1 - ALTERAR O CARRINHO] [2 - CONTINUAR COMPRANDO] OU [3 - FINALIZAR COMPRA]: \033[m"
+        print "\n\033[;1mVOCÊ DESEJA [1 - ALTERAR O CARRINHO] [2 - CONTINUAR COMPRANDO] OU [3 - FINALIZAR COMPRA]: \033[m"
         decisao_cliente = validar_entrada(3)
         
         if decisao_cliente == 1

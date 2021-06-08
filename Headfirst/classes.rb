@@ -204,7 +204,8 @@ class Carrinho
       puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{subtotal}]\033[m"
       return subtotal
     end 
-    print "\033[;1mVOCÊ POSSUI UM DESCONTO DE RS#{cliente.desconto} "
+    
+    print "\033[;1mVOCÊ POSSUI UM DESCONTO DE RS %0.2f " % [cliente.desconto]
     print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: \033[m"
     decisao_cliente = validar_entrada(2)
     if decisao_cliente == 1
@@ -212,14 +213,14 @@ class Carrinho
       cliente.desconto = 0.0
       atualizar_desconto_do_cliente(cliente)
       # Adicionar cor mais tarde
-      puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{subtotal}]\033[m"
+      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
       return subtotal
     else
       bonus = subtotal / 10
       cliente.desconto += bonus
       atualizar_desconto_do_cliente(cliente)
       # Adicionar cor mais tarde
-      puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{subtotal}]\033[m"
+      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
       return subtotal
     end
   end 
@@ -229,7 +230,7 @@ class Carrinho
     for livro in @lista_de_compras
       subtotal += livro.preco 
     end 
-    puts "\n\033[31;1m                                                                                      [Subtotal = R$#{subtotal}]\033[m"
+    puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
     return subtotal
   end
 
