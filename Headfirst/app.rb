@@ -6,7 +6,6 @@ require_relative 'cadastro'
 require_relative 'interface_funcionário'
 
 # CRIA A ESTANTE DE LIVROS
-estante = Estante.new(carregar_livros)
 
 app = true
 while app do
@@ -23,9 +22,9 @@ while app do
 
   decision = validar_entrada(3)
   if decision == 1
-    abrir_interface_cliente(estante)
+    abrir_interface_cliente
   elsif decision == 2
-    abrir_interface_funcionario(estante)
+    abrir_interface_funcionario
   elsif decision == 3
     app = false
   end 

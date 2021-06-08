@@ -1,7 +1,10 @@
 
 
-def abrir_interface_cliente(estante)
+def abrir_interface_cliente
     Gem.win_platform? ? (system "cls") : (system "clear")
+
+    estante = Estante.new(carregar_livros)
+    
     puts "\033[34;1m-=-" *4
     puts "\033[32;1mVATAPÁ STORE\033[m"
     puts "\033[34;1m-=-\033[m\033[m" *4
