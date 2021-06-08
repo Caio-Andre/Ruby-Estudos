@@ -53,10 +53,11 @@ class Funcionario
     end
   
     while true do
-      puts "\n\033[1;mLOGIN"
-      print "SEU E-MAIL: "
+      Gem.win_platform? ? (system "cls") : (system "clear")
+      puts "\033[34;1mLOGIN - FUNCIONÁRIO\033[m"
+      print "\n\033[;1mSEU E-MAIL: \033[m"
       e_mail = gets.chomp.strip
-      print "DIGITE SUA SENHA: \033[m"
+      print "\033[;1mDIGITE SUA SENHA: \033[m"
       senha = gets.chomp.strip
       
       for dados in @@funcionarios
@@ -64,7 +65,8 @@ class Funcionario
         if e_mail_total == e_mail && senha == senha_total
           return Funcionario.new(e_mail, senha)
         else
-          puts "\n\033[31;1mE-MAIL OU SENHA INCORRETO"
+          puts "\n\033[31;1mE-MAIL OU SENHA INCORRETO\033[m"
+          sleep(0.5)
         end 
       end
     end 

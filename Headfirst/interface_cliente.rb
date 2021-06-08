@@ -9,10 +9,10 @@ def abrir_interface_cliente(estante)
     decisao_cliente_cadastro = validar_entrada(2)
     if decisao_cliente_cadastro == 1
         while true do
-            puts "\nLOGIN"
-            print "SEU E-MAIL: "
+            puts "\n\033[34;1mLOGIN\033[m"
+            print "\033[;1mSEU E-MAIL: \033[m"
             e_mail_cliente = gets.chomp.strip
-            print "DIGITE SUA SENHA: \033[m"
+            print "\033[;1mDIGITE SUA SENHA: \033[m"
             senha_cliente = gets.chomp.strip
             cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
             if cliente == []
