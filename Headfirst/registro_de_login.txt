@@ -6,3 +6,7 @@ maria@gmail.com|2021-06-08 14:51:02 -0300
 maria@gmail.com|2021-06-08 14:58:08 -0300
 caio@gmail.com|2021-06-08 16:55:13 -0300
 caio@gmail.com|2021-06-08 17:18:41 -0300
+caio@gmail.com|2021-06-10 15:37:52 -0300
+caio@gmail.com|2021-06-10 15:43:11 -0300
+caio@gmail.com|2021-06-10 15:48:19 -0300
+caio@gmail.com|2021-06-10 15:48:37 -0300

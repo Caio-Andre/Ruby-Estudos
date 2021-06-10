@@ -25,5 +25,5 @@ def finalizar_compras(cliente,carrinho)
         exit()
     end 
 
-    ## REFATORAR CÓDIGO / COMENTAR CODIGO / ADIOCIONAR LIVROS / 
+    ## REFATORAR CÓDIGO (Class Cliente - ADICIONAR NA FUNCAO DE CRIAR CADASTRO A FUNCAO DE CRIAR OBJETO CLIENTE) / COMENTAR CODIGO / ADIOCIONAR LIVROS / 
 end 

@@ -1,7 +1,8 @@
 def abrir_interface_funcionario
     Gem.win_platform? ? (system "cls") : (system "clear")
 
-    estante = Estante.new(carregar_livros)
+    estante = Estante.new
+    estante.carregar_livros
     
     Funcionario.logar.registrar_entrada_do_funcionario
 
@@ -11,10 +12,10 @@ def abrir_interface_funcionario
         decisao_funcionario = validar_entrada(3)
         if decisao_funcionario == 1
             adicionar_livros_banco_de_dados(estante)
-            estante.livros = carregar_livros  
+            estante.carregar_livros  
         elsif decisao_funcionario == 2
             remover_livros_banco_de_dados(estante)
-            estante.livros = carregar_livros
+            estante.carregar_livros
         else  
             break 
         end 

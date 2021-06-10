@@ -1,17 +1,5 @@
 require_relative "classes"
 
-# LER OS LIVROS DO BANCO DE DADOS E CRIA OBJETOS DA CLASSE LIVROS. 
-def carregar_livros
-  livros = []
-  File.open("banco_de_dados_livros.txt") do |file|
-    file.each do |line| 
-      id, genero, titulo, autor, paginas, precos = line.chomp.split("|")
-      livros << Livro.new(id.to_i, genero, titulo, autor, paginas.to_i, precos.to_f)
-    end 
-  end
-  return livros
-end
-
 
 #HAS CHANGED
 def atualizar_desconto_do_cliente(cliente_com_desconto_atualizado)
@@ -44,67 +32,9 @@ def atualizar_desconto_do_cliente(cliente_com_desconto_atualizado)
   end 
 end 
 
-# HAS CHANGED
-# ADICIONA NOVOS LIVROS NO BANCO
-def adicionar_clientes_banco_de_dados
-  while true
-    print "INFORME O SEU NOME COMPLETO: "
-    nome = gets.chomp.strip.upcase
-    print "INFORME O DIA DO SEU NASCIMENTO: "
-    dia_nascimento = gets.chomp.strip
-    print "INFORME O MES DO SEU NASCIMENTO: "
-    mes_nascimento = gets.chomp.strip
-    print "INFORME O ANO DO SEU NASCIMENTO: "
-    ano_nascimento = gets.chomp.strip
-    print "INFORME O ESTADO: "
-    estado = gets.chomp.strip.upcase
-    print "INFORME A SUA CIDADE: "
-    cidade = gets.chomp.strip.upcase
-    print "INFORME O NÚMERO DA SUA RESIDÊNCIA: "
-    numero = gets.chomp.strip
-    print "INFORME O SEU CEP: "
-    cep = gets.chomp.strip
 
-    print "\nINFORME O SEU E-MAIL PARA LOGIN: "
-    e_mail = gets.chomp.strip.downcase
 
-    print "\nINFORME O SUA SENHA PARA LOGIN: "
-    senha = gets.chomp.strip.downcase
 
-    puts("""NOME: [#{nome}]
-DATA DE NASCIMENTO: #{dia_nascimento}/#{mes_nascimento}/#{ano_nascimento}
-ENDEREÇO: ESTADO[#{estado}] CIDADE[#{cidade}] NUMERO[#{numero}] CEP[#{cep}]
-E-MAIL: [#{e_mail}]""")
-    puts "SEUS DADOS ESTÃO CORRETOS [Sim - 1] [Não - 2]: "
-    decisao_cliente = validar_entrada(2)
-    next if decisao_cliente == 2
-    # HERE   
-    File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
-      arquivo.puts("#{nome}|#{dia_nascimento}|#{mes_nascimento}|#{ano_nascimento}|#{estado}|#{cidade}|#{numero}|#{cep}|#{e_mail}|#{senha}|#{0.0}")
-    end
-
-    puts "CADASTRO REALIZADO COM SUCESSO!"
-    return [e_mail, senha]
-   
-  end
-end 
-
-def carregar_dados_cliente(e_mail_cliente,senha_cliente)
-  fregues = nil
-  File.open("banco_de_dados_clientes.txt") do |file|
-    file.each do |line|
-      #HERE
-      if e_mail_cliente == line.chomp.split("|")[8] && senha_cliente == line.chomp.split("|")[9]
-        dados_do_cliente = line.chomp.split("|")
-        descontao = dados_do_cliente.last
-        dados_do_cliente.delete(descontao)
-        fregues = Cliente.new(*dados_do_cliente)
-        fregues.desconto = descontao.to_f
-      end 
-    end 
-  end
-  return fregues
-end
 
 # CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
 def calcular_valor_final(subtotal)

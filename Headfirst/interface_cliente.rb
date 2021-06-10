@@ -2,31 +2,14 @@
 def abrir_interface_cliente
     Gem.win_platform? ? (system "cls") : (system "clear")
 
-    estante = Estante.new(carregar_livros)
-    
+    estante = Estante.new
+    estante.carregar_livros
+
     puts "\033[34;1m-=-" *4
     puts "\033[32;1mVATAPÁ STORE\033[m"
     puts "\033[34;1m-=-\033[m\033[m" *4
-    print "\n\033[;1m[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
-    decisao_cliente_cadastro = validar_entrada(2)
-    if decisao_cliente_cadastro == 1
-        while true do
-            puts "\n\033[34;1mLOGIN\033[m"
-            print "\033[;1mSEU E-MAIL: \033[m"
-            e_mail_cliente = gets.chomp.strip
-            print "\033[;1mDIGITE SUA SENHA: \033[m"
-            senha_cliente = gets.chomp.strip
-            cliente = carregar_dados_cliente(e_mail_cliente,senha_cliente)
-            if cliente == nil
-                puts "\033[31;1mSEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!\033[m"
-                next
-            end 
-            break
-        end 
-        
-    else
-        cliente = fazer_cadastro
-    end
+    
+    Cliente.acessar_loja_pelo_cadastro
 
     Gem.win_platform? ? (system "cls") : (system "clear")
     # Cria o carrinho de compras
@@ -77,6 +60,13 @@ def abrir_interface_cliente
         else
             break 
         end
+
+        # CHECA SE O CARRINHO ESTÁ VAZIO
+        if carrinho.lista_de_compras.empty? 
+            puts "\033[31;1mCARRINHO VAZIO!\033[m"
+            next
+        end 
+
         Gem.win_platform? ? (system "cls") : (system "clear")
         carrinho.mostrar_lista_compras
         carrinho.calcular_subtotal
