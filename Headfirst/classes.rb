@@ -42,7 +42,7 @@ class Cliente
                 puts "\033[31;1mSEU E-MAIL OU SENHA ESTÃO INCORRETOS!!!\033[m"
                 next
             end 
-            break
+            return cliente
         end 
     else
         return self.adicionar_clientes_banco_de_dados
@@ -66,7 +66,7 @@ class Cliente
     return fregues
   end
 
-# HAS CHANGED
+  
 # ADICIONA NOVOS LIVROS NO BANCO
 def self.adicionar_clientes_banco_de_dados
   while true
@@ -106,8 +106,7 @@ E-MAIL: [#{e_mail}]""")
     end
 
     puts "CADASTRO REALIZADO COM SUCESSO!"
-    return [e_mail, senha] 
-   
+    return self.carregar_dados_cliente(e_mail, senha)
   end
 end 
 
