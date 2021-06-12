@@ -45,7 +45,7 @@ class Cliente
             break
         end 
     else
-        cliente = self.adicionar_clientes_banco_de_dados
+        return self.adicionar_clientes_banco_de_dados
     end
   end 
 

@@ -9,7 +9,7 @@ def abrir_interface_cliente
     puts "\033[32;1mVATAPÁ STORE\033[m"
     puts "\033[34;1m-=-\033[m\033[m" *4
     
-    Cliente.acessar_loja_pelo_cadastro
+    cliente = Cliente.acessar_loja_pelo_cadastro
 
     Gem.win_platform? ? (system "cls") : (system "clear")
     # Cria o carrinho de compras
