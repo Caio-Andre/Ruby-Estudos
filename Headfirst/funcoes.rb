@@ -68,9 +68,9 @@ def escolher_forma_de_pagamento(total)
     validar_dados_do_cartao
   elsif decisao_cliente == 2
     validar_dados_do_cartao 
-    print "EM QUANTAS VEZES GOSTARIA DE PAGAR(ATÉ 6 VEZES): "
+    print "\033[;1mEM QUANTAS VEZES GOSTARIA DE PAGAR(ATÉ 6 VEZES): \033[m"
     parcelamento = validar_entrada(6)
-    puts format("VALOR DA PARCELA: R$%.2f", total/parcelamento.to_f)
+    puts format("\n\033[;1mVALOR DA PARCELA: R$%.2f\033[m", total/parcelamento.to_f)
   else #47
     ano_atual = Time.new.year 
     mes_atual = Time.new.month 
@@ -97,15 +97,15 @@ def validar_dados_do_cartao
 
   valido = false
     while not valido 
-      print "NOME TITULAR DO CARTÃO: "
+      print "\033[;1mNOME TITULAR DO CARTÃO: "
       nome_titular_cartao = gets.chomp.strip.upcase
-      print "INFORME O NÚMERO DO CARTÃO: "
+      print "\nINFORME O NÚMERO DO CARTÃO: "
       numero_cartao_cliente = gets.chomp.strip
-      print "MES DE VENCIMENTO DO CARTÃO (2 Dígitos): "
+      print "\nMES DE VENCIMENTO DO CARTÃO (2 Dígitos): "
       mes_cartao_vencimento = gets.chomp.strip
-      print "ANO DE VENCIMENTO DO CARTÃO (2 Dígitos): "
+      print "\nANO DE VENCIMENTO DO CARTÃO (2 Dígitos): "
       ano_cartao_vencimento = gets.chomp.strip
-      print "CÓDIGO DE SEGURANÇA (3 Dígitos): "
+      print "\nCÓDIGO DE SEGURANÇA (3 Dígitos): \033[m"
       codigo_seguranca_cartao = gets.chomp.strip
 
       if ano_atual < ano_cartao_vencimento.to_i
@@ -115,9 +115,9 @@ def validar_dados_do_cartao
       end 
 
       if not valido 
-        puts "DADOS DO CARTÃO INVÁLIDO!"
+        puts "\n\n\033[31;1mDADOS DO CARTÃO INVÁLIDO!\033[m"
       else
-        puts "CARTÃO APROVADO" 
+        puts "\n\n\033[32;1mCARTÃO APROVADO\033[m" 
       end
     end  
 

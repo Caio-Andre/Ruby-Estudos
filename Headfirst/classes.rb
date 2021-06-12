@@ -291,7 +291,7 @@ class Carrinho
   
   def adicionar_carrinho (livros_desejados)
     @lista_de_compras.push(*livros_desejados)
-    puts "\nSEU CARRINHO ATUAL:", @lista_de_compras
+    puts "\n\033[;1mSEU CARRINHO ATUAL:\033[m", @lista_de_compras
   end
 
   def mostrar_lista_compras
