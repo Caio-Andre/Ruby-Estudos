@@ -709,3 +709,5 @@ end
 def decrypt(encrypted_string)
   Base64.decode64(encrypted_string)
 end
+
+
