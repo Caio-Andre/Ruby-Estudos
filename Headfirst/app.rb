@@ -1,12 +1,10 @@
 require_relative 'classes'
-require_relative 'funcoes'
 require_relative 'interface_cliente'
 require_relative 'interface_finalizar_compra'
 require_relative 'cadastro'
 require_relative 'interface_funcionário'
 
 # CRIA A ESTANTE DE LIVROS
-
 app = true
 while app do
   Gem.win_platform? ? (system "cls") : (system "clear")

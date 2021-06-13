@@ -1,18 +1,20 @@
 require_relative 'classes'
 
-# HAS CHANGED
+# DIRECIONA O CLIENTE PARA A INTERFACE DE FINALIZAR A COMPRA
 def finalizar_compras(cliente,carrinho)
-    
-    #HERE
+    finalizador_de_compras = Finalizador_de_Compra.new
+   
     puts "\n\n"
     total = carrinho.calcular_valor_final(cliente)
 
-    escolher_forma_de_pagamento(total)
+    finalizador_de_compras.escolher_forma_de_pagamento(total)
 
-    print "\n\033[;1mVOCÊ DESEJA  [1 - CONFIRMAR COMPRA] [2 - SAIR DA LOJA] : \033[34;1m"
+
+    print "\n\n\033[;1mVOCÊ DESEJA  [1 - CONFIRMAR COMPRA] [2 - SAIR DA LOJA] : \033[34;1m"
     decisao_cliente = validar_entrada(2)
     
     if decisao_cliente == 1   
+        cliente.atualizar_desconto_do_cliente
         sleep(0.5)
         Gem.win_platform? ? (system "cls") : (system "clear")
         puts "\033[34;1m-=-" *4
@@ -25,5 +27,5 @@ def finalizar_compras(cliente,carrinho)
         exit()
     end 
 
-    ## REFATORAR CÓDIGO (Class Cliente - ADICIONAR NA FUNCAO DE CRIAR CADASTRO A FUNCAO DE CRIAR OBJETO CLIENTE) / COMENTAR CODIGO / CONCERTAR PRINTS DO CADASTRO E DOS PAGAMENTOS /ADIOCIONAR LIVROS / 
+    # ADIOCIONAR LIVROS 
 end 

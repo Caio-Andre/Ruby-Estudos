@@ -17,7 +17,7 @@ def abrir_interface_cliente
     puts "\033[34;1m-=-" *4
     puts "\033[32;1mVATAPÁ STORE\033[m"
     puts "\033[34;1m-=-\033[m" *4
-    puts "\033[;1Bem Vindo à maior loja de livros do Norte!\033[m"
+    puts "\033[;1mBem Vindo à maior loja de livros do Norte!\033[m"
     while true 
         print "\033[34;1m
 [1] PROCURAR LIVRO POR TITULO [2] PROCURAR LIVRO POR AUTOR 
