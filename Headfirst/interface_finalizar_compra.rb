@@ -5,7 +5,7 @@ def finalizar_compras(cliente,carrinho)
     
     #HERE
     puts "\n\n"
-    total = calcular_valor_final(carrinho.calcular_desconto(cliente))
+    total = carrinho.calcular_valor_final(cliente)
 
     escolher_forma_de_pagamento(total)
 

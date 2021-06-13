@@ -27,6 +27,7 @@ class Cliente
     @nome, @dia_nascimento, @mes_nascimento, @ano_nascimento, @estado, @cidade, @numero, @cep, @e_mail, @senha = nome, dia_nascimento, mes_nascimento, ano_nascimento, estado, cidade, numero, cep, e_mail, senha
   end
 
+  # RECEBE O LOGIN OU FAZ O CADSTRO DO CLIENTE E RETORNA UM OBJETO CLIENTE
   def self.acessar_loja_pelo_cadastro
   print "\n\033[;1m[1] POSSUI CADASTRO  |  [2] FAZER CADASTRO: "
     decisao_cliente_cadastro = validar_entrada(2)
@@ -49,6 +50,7 @@ class Cliente
     end
   end 
 
+  # LER O ARQUIVO TXT, COMPARA AS INFORMACOES DO CLIENTE E RETORNA UM OBJETO CLIENTE
   def self.carregar_dados_cliente(e_mail_cliente,senha_cliente)
     fregues = nil
     File.open("banco_de_dados_clientes.txt") do |file|
@@ -67,7 +69,7 @@ class Cliente
   end
 
   
-# ADICIONA NOVOS LIVROS NO BANCO
+# RECEBE OS DADOS DE CADASTRO DO CLIENTE, ESCREVE OS DADOS NO TXT E RETORNA UM OBJETO CLIENTE
 def self.adicionar_clientes_banco_de_dados
   while true
     print "INFORME O SEU NOME COMPLETO: "
@@ -110,6 +112,36 @@ E-MAIL: [#{e_mail}]""")
   end
 end 
 
+# LER O ARQUIVO TXT, COMPARA O LOGIN DO CLIENTE, ATUALIZA O ATRIBUTO DESCONTO DO OBJETO E ATUALIZA O ARQUIVO TXT COM O NOVO OBJETO
+def atualizar_desconto_do_cliente
+  clientes = []
+  File.open("banco_de_dados_clientes.txt") do |file|
+    file.each do |line|
+      dados_do_cliente = line.chomp.split("|")
+      descontao = dados_do_cliente.last
+      dados_do_cliente.delete(descontao)
+      fregues = Cliente.new(*dados_do_cliente)
+      fregues.desconto = descontao.to_f
+      clientes << fregues
+    end 
+  end
+
+  for cliente_com_desconto_desatualizado in clientes
+    if cliente_com_desconto_desatualizado.senha == self.senha && cliente_com_desconto_desatualizado.e_mail == self.e_mail
+      clientes.delete(cliente_com_desconto_desatualizado)
+      clientes << self
+    end
+  end
+
+  File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
+  end
+
+  for cliente in clientes
+    File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
+      arquivo.puts("#{cliente.nome}|#{cliente.dia_nascimento}|#{cliente.mes_nascimento}|#{cliente.ano_nascimento}|#{cliente.estado}|#{cliente.cidade}|#{cliente.numero}|#{cliente.cep}|#{cliente.e_mail}|#{cliente.senha}|#{cliente.desconto}")
+    end
+  end 
+end 
 
 
   def to_s
@@ -211,6 +243,8 @@ class Estante
 
     if livros_filtrados == []
       puts "\n\033[1;31mLIVRO NÃO ENCONTRADO NO ESTOQUE!\033[m" 
+      sleep(0.5) 
+      Gem.win_platform? ? (system "cls") : (system "clear")
       return
     else
       return livros_filtrados
@@ -247,7 +281,15 @@ class Estante
         end   
       end 
     end
-    return livros_filtrados
+
+    if livros_filtrados == []
+      puts "\n\033[1;31mLIVRO NÃO ENCONTRADO NO ESTOQUE!\033[m"
+      sleep(0.5) 
+      Gem.win_platform? ? (system "cls") : (system "clear")
+      return
+    else
+      return livros_filtrados
+    end 
   end 
   
   def selecionar_livros_desejados (livros_filtrados)
@@ -286,6 +328,7 @@ class Carrinho
   attr_accessor :lista_de_compras
   def initialize 
     @lista_de_compras = []
+    @subtotal = 0
   end 
   
   def adicionar_carrinho (livros_desejados)
@@ -296,49 +339,65 @@ class Carrinho
   def mostrar_lista_compras
     puts "\n\033[34;1mLIVROS NO CARRINHO: \033[m", @lista_de_compras
   end 
-  
-  #HAS CHANGED
+
+  # CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL EM FORMA DE TOTAL 
+  def calcular_valor_final(cliente)
+    Gem.win_platform? ? (system "cls") : (system "clear")
+    puts "\033[34;1m-=-" *4
+    puts "\033[32;1mVATAPÁ STORE\033[m"
+    puts "\033[34;1m-=-\033[m" *4
+    puts "\n\n\033[34;1m|ESCOLHA SEU FRETE|\033[m"
+    print """\n\033[;1m[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
+[2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
+FRETE: \033[m"""
+    opção_frete_cliente = validar_entrada(2)
+    if opção_frete_cliente == 1
+      total = 25 + self.calcular_desconto(cliente)
+      puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
+    else 
+      total = 40 + self.calcular_desconto(cliente)
+      puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
+    end 
+    return total 
+  end
+
+# CALCULA O DESCONTO E O MANIPULA DE ACORDO COM A ESCOLHA DO CLIENTE 
   def calcular_desconto(cliente)
-    subtotal = 0
-    for livro in @lista_de_compras
-      subtotal += livro.preco 
-    end
     if cliente.desconto == 0.0
-      bonus = subtotal / 10
+      bonus = @subtotal / 10
       cliente.desconto += bonus
-      atualizar_desconto_do_cliente(cliente)
-      # Adicionar cor mais tarde
-      puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{subtotal}]\033[m"
-      return subtotal
+      cliente.atualizar_desconto_do_cliente
+      puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{@subtotal}]\033[m"
+      return @subtotal
     end 
     
     print "\033[;1mVOCÊ POSSUI UM DESCONTO DE RS %0.2f " % [cliente.desconto]
     print "DESEJA APLICÁ-LO NO VALOR TOTAL DA SUA COMPRA? [Sim - 1] [Não - 2]: \033[m"
     decisao_cliente = validar_entrada(2)
     if decisao_cliente == 1
-      subtotal -= cliente.desconto
+      @subtotal -= cliente.desconto
       cliente.desconto = 0.0
-      atualizar_desconto_do_cliente(cliente)
-      # Adicionar cor mais tarde
-      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
-      return subtotal
+      cliente.atualizar_desconto_do_cliente
+      
+      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [@subtotal]
+      return @subtotal
     else
-      bonus = subtotal / 10
+      bonus = @subtotal / 10
       cliente.desconto += bonus
-      atualizar_desconto_do_cliente(cliente)
-      # Adicionar cor mais tarde
-      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
-      return subtotal
+      cliente.atualizar_desconto_do_cliente
+      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [@subtotal]
+      return @subtotal
     end
   end 
 
+# SOMA O VALOR DOS LIVROS QUE ESTAO ATUALMENTE NA LISTA DE COMPRAS 
   def calcular_subtotal
-    subtotal = 0
+    @subtotal = 0
     for livro in @lista_de_compras
-      subtotal += livro.preco 
+      @subtotal += livro.preco 
     end 
-    puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [subtotal]
-    return subtotal
+    puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [@subtotal]
+    return @subtotal
   end
 
   def alterar_carrinho
@@ -400,6 +459,7 @@ class Carrinho
               end 
             end
             sleep(0.5)
+            Gem.win_platform? ? (system "cls") : (system "clear")
             puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[34;1m", @lista_de_compras
             calcular_subtotal
             print "\033[;1mVOCÊ DESEJA REMOVER OUTRO LIVRO [Sim - 1] [Não - 2]: \033[m"
@@ -410,7 +470,6 @@ class Carrinho
             Gem.win_platform? ? (system "cls") : (system "clear")
             puts "\n\033[34;1mLIVROS NO CARRINHO:\n\n\033[m", @lista_de_compras
             calcular_subtotal
-            
         end 
       end 
 

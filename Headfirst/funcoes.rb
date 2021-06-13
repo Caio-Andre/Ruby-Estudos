@@ -1,63 +1,7 @@
 require_relative "classes"
 
 
-#HAS CHANGED
-def atualizar_desconto_do_cliente(cliente_com_desconto_atualizado)
-  clientes = []
-  File.open("banco_de_dados_clientes.txt") do |file|
-    file.each do |line|
-      dados_do_cliente = line.chomp.split("|")
-      descontao = dados_do_cliente.last
-      dados_do_cliente.delete(descontao)
-      fregues = Cliente.new(*dados_do_cliente)
-      fregues.desconto = descontao.to_f
-      clientes << fregues
-    end 
-  end
-
-  for cliente_com_desconto_desatualizado in clientes
-    if cliente_com_desconto_desatualizado.senha == cliente_com_desconto_atualizado.senha && cliente_com_desconto_desatualizado.e_mail == cliente_com_desconto_atualizado.e_mail
-      clientes.delete(cliente_com_desconto_desatualizado)
-      clientes << cliente_com_desconto_atualizado
-    end
-  end
-
-  File.open("banco_de_dados_clientes.txt", "w") do |arquivo|
-  end
-
-  for cliente in clientes
-    File.open("banco_de_dados_clientes.txt", "a") do |arquivo|
-      arquivo.puts("#{cliente.nome}|#{cliente.dia_nascimento}|#{cliente.mes_nascimento}|#{cliente.ano_nascimento}|#{cliente.estado}|#{cliente.cidade}|#{cliente.numero}|#{cliente.cep}|#{cliente.e_mail}|#{cliente.senha}|#{cliente.desconto}")
-    end
-  end 
-end 
-
-
-
-
-
-# CALCULA O FRETE E RETORNA A SOMA DO FRETE COM O SUBTOTAL
-def calcular_valor_final(subtotal)
-  Gem.win_platform? ? (system "cls") : (system "clear")
-  puts "\033[34;1m-=-" *4
-  puts "\033[32;1mVATAPÁ STORE\033[m"
-  puts "\033[34;1m-=-\033[m" *4
-  puts "\n\n\033[34;1m|ESCOLHA SEU FRETE|\033[m"
-  print """\n\033[;1m[1] PAC >> 10 - 15 DIAS PARA ENTREGA | R$25,00
-[2] SEDEX >> 2 - 6 DIAS PARA ENTREGA | R$40,00 
-FRETE: \033[m"""
-  opção_frete_cliente = validar_entrada(2)
-  if opção_frete_cliente == 1
-    total = 25 + subtotal
-    puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
-  else 
-    total = 40 + subtotal
-    puts "\n\033[32;1m                                                                                      [TOTAL = R$%0.2f]\033[m" % [total]
-  end 
-  return total 
-end
-
-
+############################################################ CLASSE PAGAMENTO
 # DEFINE A FORMA DE PAGAMENTO DA COMPRA E VÁLIDA A FORMA
 def escolher_forma_de_pagamento(total)
   puts "\033[34;1mPAGAMENTO\033[m"
@@ -82,9 +26,9 @@ BENEFICIÁRIO: VATAPÁSTORE.LTDA
 
 DATA DOCUMENTO: #{dia_atual}/#{mes_atual}/#{ano_atual}  | Nº DOCUMENTO: #{gerar_num_documento}
 
-VALOR DOCUMENTO: R$#{total}
+VALOR DOCUMENTO: R$%0.2f
 
->> O BOLETO VENCE EM 5 DIAS\033[m"""
+>> O BOLETO VENCE EM 5 DIAS\033[m""" % [total]
   end 
 
 end 
@@ -142,10 +86,10 @@ def gerar_num_documento
   end 
   return num_documento
 end 
+##################################################################FIM CLASSE PAGAMENTO
 
 
-
-
+##################################################################CLASSE VALIDADOR DE PAGAMENTO
 # RECEBE O NÚMERO DE OPÇÕES VÁLIDAS E SÓ RETURNA A FUNÇÃO QUANDO A ENTRADA DO USUÁRIO É VÁLIDA
 def validar_entrada (numero_de_opcoes_validas) 
   opções = (1..numero_de_opcoes_validas).to_a
@@ -193,3 +137,4 @@ def gerar_id_disponível(estante)
     end 
   end  
 end 
+########################################################FIM DE CLASSE

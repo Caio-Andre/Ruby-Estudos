@@ -21,7 +21,8 @@ def abrir_interface_funcionario
         end 
     end 
 end 
-        
+
+###########################################################CLASSE FUNCIONARIO
 # ADICIONA NOVOS LIVROS NO BANCO
 def adicionar_livros_banco_de_dados(estante)
   Gem.win_platform? ? (system "cls") : (system "clear")
@@ -102,3 +103,4 @@ def remover_livros_banco_de_dados(estante)
       end 
     end 
 end 
+###########################################################CLASSE FUNCIONARIO
