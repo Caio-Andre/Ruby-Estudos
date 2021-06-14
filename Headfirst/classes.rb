@@ -226,7 +226,8 @@ class Funcionario
             arquivo.puts("#{id}|#{genero}|#{titulo}|#{autor}|#{paginas}|#{preco}")
           end
           puts "\n\033[32;1mLIVRO ADICIONADO COM SUCESSO!\033[m"
-        end 
+        end
+        estante.carregar_livros
         puts "\n\033[;1mVOCÊ DESEJA ADICIONAR UM LIVRO DIFERENTE [Sim - 1] [Não - 2]: \033[m"
         decisao_funcionario = validar_entrada(2)
         if decisao_funcionario == 2
@@ -254,7 +255,8 @@ class Funcionario
           end 
         end  
         print "\n\033[;1mINFORME O ID DO LIVRO A SER REMOVIDO: \033[m"
-        id = validar_id
+        estante.carregar_livros
+        id = validar_id(estante.livros)
         for livro in estante.livros
           if livro.id == id 
             estante.livros.delete(livro)
@@ -269,6 +271,8 @@ class Funcionario
             arquivo.puts("#{livro.id}|#{livro.genero}|#{livro.titulo}|#{livro.autor}|#{livro.paginas}|#{livro.preco}")
           end
         end 
+        puts "\n\033[31;1mLIVRO REMOVIDO!\033[m"
+
         print "\n\033[;1mVOCÊ QUER REMOVER OUTRO LIVRO: [Sim - 1] [Não - 2]: \033[m"
         decisao_funcionario = validar_entrada(2)
         if decisao_funcionario == 1

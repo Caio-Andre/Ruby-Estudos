@@ -13,10 +13,8 @@ def abrir_interface_funcionario
         decisao_funcionario = validar_entrada(3)
         if decisao_funcionario == 1
             funcionario.adicionar_livros_banco_de_dados(estante)
-            estante.carregar_livros  
         elsif decisao_funcionario == 2
             funcionario.remover_livros_banco_de_dados(estante)
-            estante.carregar_livros
         else  
             break 
         end 
