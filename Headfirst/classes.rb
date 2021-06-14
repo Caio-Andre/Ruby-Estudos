@@ -263,7 +263,6 @@ class Funcionario
             puts 
           end 
         end 
-        puts estante.livros
           File.open("banco_de_dados_livros.txt", "w") do |arquivo|
           end
         for livro in estante.livros
@@ -276,6 +275,7 @@ class Funcionario
         print "\n\033[;1mVOCÊ QUER REMOVER OUTRO LIVRO: [Sim - 1] [Não - 2]: \033[m"
         decisao_funcionario = validar_entrada(2)
         if decisao_funcionario == 1
+          Gem.win_platform? ? (system "cls") : (system "clear")
           next
         else
           break
