@@ -119,7 +119,7 @@ E-MAIL: [#{e_mail}]""")
   def self.validar_cadastro_cliente(nome,dia_nascimento,mes_nascimento,ano_nascimento,estado,cidade,numero,cep,e_mail,senha)
     numbers = ['0','1','2','3','4','5','6','7','8','9']
     states = ['AC','AL','AP','AM','BA','CE','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','DF']
-    letters = ('A'..'Z').to_a
+    letters = ('A'..'Z').to_a + [" "]
     valido = true
 
     nome.each_char do |letter|
@@ -542,7 +542,7 @@ FRETE: \033[m"""
     if cliente.desconto == 0.0
       bonus = @subtotal / 10
       cliente.desconto += bonus
-      puts "\n\033[31;1m                                                                                      [SUBTOTAL = R$#{@subtotal}]\033[m"
+      puts "\n\033[31;1m                                                                                      [Subtotal = R$%0.2f]\033[m" % [@subtotal]
       return @subtotal
     end 
     
@@ -702,7 +702,7 @@ VALOR DOCUMENTO: R$%0.2f
     mes_atual = Time.new.month 
     dia_atual = Time.new.day
     numbers = ['0','1','2','3','4','5','6','7','8','9']
-    letters = ('A'..'Z').to_a
+    letters = ('A'..'Z').to_a + [" "]
 
     valido = nil
       
