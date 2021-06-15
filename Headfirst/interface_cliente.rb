@@ -44,7 +44,7 @@ def abrir_interface_cliente
             end 
             carrinho.adicionar_carrinho(estante.selecionar_livros_desejados(livros_filtrados))
         elsif decisao_cliente == 3
-            print "\033[;1mINFORME O GÊNERO:\033[m"
+            print "\033[;1mINFORME O GÊNERO (ROMANCE/CONTO/POESIA/NOVELA/NAO-FICAO) :\033[m"
             genero_escolhido_cliente = gets.chomp.upcase.strip
             livros_filtrados = estante.filtrar(genero_escolhido_cliente)
             if livros_filtrados == nil
