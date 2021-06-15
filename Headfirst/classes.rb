@@ -90,6 +90,7 @@ class Cliente
       print "\nINFORME O SUA SENHA PARA LOGIN: "
       senha = gets.chomp.strip.downcase
 
+      Gem.win_platform? ? (system "cls") : (system "clear")
       dados_validos = self.validar_cadastro_cliente(nome,dia_nascimento,mes_nascimento,ano_nascimento,estado,cidade,numero,cep,e_mail,senha)
 
       if not dados_validos
@@ -121,8 +122,8 @@ E-MAIL: [#{e_mail}]""")
     letters = ('A'..'Z').to_a
     valido = true
 
-    numbers.each do |number|
-      if nome.include? number
+    nome.each_char do |letter|
+      if not letters.include? letter
         puts "\n\033[31;1mNOME INVALIDO\033[m"
         valido = false
         break
@@ -134,25 +135,25 @@ E-MAIL: [#{e_mail}]""")
       valido = false
     end 
     
-    letters.each do |letter|
-      if dia_nascimento.include? letter
-        puts "\n\033[31;1mDIA INVALIDO\033[m"
+    dia_nascimento.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mDIA DEVE POSSUIR APENAS LETRAS\033[m"
         valido = false
         break
       end 
     end 
 
-    letters.each do |letter|
-      if mes_nascimento.include? letter
-        puts "\n\033[31;1mMES INVALIDO\033[m"
+    mes_nascimento.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mMES DEVE POSSUIR APENAS LETRAS\033[m"
         valido = false
         break
       end 
     end 
     
-    letters.each do |letter|
-      if ano_nascimento.include? letter
-        puts "\n\033[31;1mANO INVALIDO\033[m"
+    ano_nascimento.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mANO DEVE POSSUIR APENAS LETRAS\033[m"
         valido = false
         break
       end 
@@ -168,9 +169,9 @@ E-MAIL: [#{e_mail}]""")
       valido = false
     end 
 
-    letters.each do |letter|
-      if cep.include? letter
-        puts "\n\033[31;1mCEP INVALIDO\033[m"
+    cep.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mCEP DEVE POSSUIR APENAS LETRAS\033[m"
         valido = false
         break
       end 
@@ -660,67 +661,116 @@ end
 class Finalizador_de_Compra
   # DEFINE O MEIO QUE O CLIENTE IRA UTILIZAR PARA PAGAR 
   def escolher_forma_de_pagamento(total)
-    puts "\033[34;1mPAGAMENTO\033[m"
-    print"\n\033[;1mSELECIONE UMA FORMA DE PAGAMENTO [1 - CARTÃO DE DÉBITO] [2 - CARTÃO DE CRÉDITO] [3 - BOLETO]: \033[m"
-    decisao_cliente = validar_entrada(3)
+  valido = false
+    while not valido do
+      puts "\033[34;1mPAGAMENTO\033[m"
+      print"\n\033[;1mSELECIONE UMA FORMA DE PAGAMENTO [1 - CARTÃO DE DÉBITO] [2 - CARTÃO DE CRÉDITO] [3 - BOLETO]: \033[m"
+      decisao_cliente = validar_entrada(3)
   
-    if decisao_cliente == 1
-      self.validar_dados_do_cartao
-    elsif decisao_cliente == 2
-      self.validar_dados_do_cartao 
-      print "\033[;1mEM QUANTAS VEZES GOSTARIA DE PAGAR(ATÉ 6 VEZES): \033[m"
-      parcelamento = validar_entrada(6)
-      puts format("\n\033[;1mVALOR DA PARCELA: R$%.2f\033[m", total/parcelamento.to_f)
-    else #47
-      ano_atual = Time.new.year 
-      mes_atual = Time.new.month 
-      dia_atual = Time.new.day
-      Gem.win_platform? ? (system "cls") : (system "clear")
-      puts "\033[34;1mBOLETO GERADO \033[m"
-      print """\n\033[;1mCÓDIGO DO DOCUMENTO: [#{self.gerar_boleto}]
+      if decisao_cliente == 1
+        valido = self.validar_dados_do_cartao
+      elsif decisao_cliente == 2
+        valido = self.validar_dados_do_cartao 
+        if valido
+          print "\033[;1mEM QUANTAS VEZES GOSTARIA DE PAGAR(ATÉ 6 VEZES): \033[m"
+          parcelamento = validar_entrada(6)
+          puts format("\n\033[;1mVALOR DA PARCELA: R$%.2f\033[m", total/parcelamento.to_f)
+        end 
+      else 
+        ano_atual = Time.new.year 
+        mes_atual = Time.new.month 
+        dia_atual = Time.new.day
+        Gem.win_platform? ? (system "cls") : (system "clear")
+        puts "\033[34;1mBOLETO GERADO \033[m"
+        print """\n\033[;1mCÓDIGO DO DOCUMENTO: [#{self.gerar_boleto}]
 BENEFICIÁRIO: VATAPÁSTORE.LTDA
   
 DATA DOCUMENTO: #{dia_atual}/#{mes_atual}/#{ano_atual}  | Nº DOCUMENTO: #{self.gerar_num_documento}
   
 VALOR DOCUMENTO: R$%0.2f
-  
+
 >> O BOLETO VENCE EM 5 DIAS\033[m""" % [total]
+        valido = true 
+      end 
     end 
   
   end 
   
   # AVALIA AS ENTRADAS DOS USUARIO E DETERMINA SE O CARTAO E VALIDO OU NAO 
-  def validar_dados_do_cartao 
+  def validar_dados_do_cartao
     ano_atual = Time.new.year % 2000
     mes_atual = Time.new.month 
     dia_atual = Time.new.day
-  
-    valido = false
-      while not valido 
-        print "\033[;1mNOME TITULAR DO CARTÃO: "
-        nome_titular_cartao = gets.chomp.strip.upcase
-        print "\nINFORME O NÚMERO DO CARTÃO: "
-        numero_cartao_cliente = gets.chomp.strip
-        print "\nMES DE VENCIMENTO DO CARTÃO (2 Dígitos): "
-        mes_cartao_vencimento = gets.chomp.strip
-        print "\nANO DE VENCIMENTO DO CARTÃO (2 Dígitos): "
-        ano_cartao_vencimento = gets.chomp.strip
-        print "\nCÓDIGO DE SEGURANÇA (3 Dígitos): \033[m"
-        codigo_seguranca_cartao = gets.chomp.strip
-  
-        if ano_atual < ano_cartao_vencimento.to_i
-          valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3  
-        else
-          valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3 && mes_cartao_vencimento.to_i >= mes_atual && ano_cartao_vencimento.to_i >= ano_atual 
-        end 
-  
-        if not valido 
-          puts "\n\n\033[31;1mDADOS DO CARTÃO INVÁLIDO!\033[m"
-        else
-          puts "\n\n\033[32;1mCARTÃO APROVADO\033[m" 
-        end
-      end  
-  
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
+    letters = ('A'..'Z').to_a
+
+    valido = nil
+      
+    print "\033[;1mNOME TITULAR DO CARTÃO: "
+    nome_titular_cartao = gets.chomp.strip.upcase
+    print "\nINFORME O NÚMERO DO CARTÃO (16 DÍGITOS) : "
+    numero_cartao_cliente = gets.chomp.strip
+    print "\nMES DE VENCIMENTO DO CARTÃO (XX) : "
+    mes_cartao_vencimento = gets.chomp.strip
+    print "\nANO DE VENCIMENTO DO CARTÃO (XX) : "
+    ano_cartao_vencimento = gets.chomp.strip
+    print "\nCÓDIGO DE SEGURANÇA (XXX): \033[m"
+    codigo_seguranca_cartao = gets.chomp.strip
+    
+
+    if ano_atual < ano_cartao_vencimento.to_i
+      valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3  
+    else
+      valido = numero_cartao_cliente.size == 16 && mes_cartao_vencimento.size == 2 && ano_cartao_vencimento.size == 2 && codigo_seguranca_cartao.size == 3 && mes_cartao_vencimento.to_i >= mes_atual && ano_cartao_vencimento.to_i >= ano_atual 
+    end 
+
+    nome_titular_cartao.each_char do |letter|
+      if not letters.include? letter
+        puts "\n\033[31;1mNOME INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    numero_cartao_cliente.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mNÚMERO DEVE CONTER [16] NÚMEROS\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    mes_cartao_vencimento.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mMÊS DE VENCIMENTO DEVE CONTER [2] NÚMEROS\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    ano_cartao_vencimento.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mANO DE VENCIMENTO DEVE CONTER [2] NÚMEROS\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    codigo_seguranca_cartao.each_char do |number|
+      if not numbers.include? number
+        puts "\n\033[31;1mCÓDIGO DE SEGURAÇA DEVE CONTER [3] NÚMEROS\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    if valido 
+      puts "\n\n\033[32;1mCARTÃO APROVADO\033[m"
+    else
+      puts "\n\033[31;1mDADOS DO CARTÃO INVÁLIDOS!\033[m"
+    end
+    
+    return valido 
   end 
   
   # GERA UM NUMERO ALEATORIO PARA O BOLETO DO CLIENTE
