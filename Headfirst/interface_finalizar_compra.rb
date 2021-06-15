@@ -27,5 +27,5 @@ def finalizar_compras(cliente,carrinho)
         exit()
     end 
 
-    # ADIOCIONAR LIVROS 
+    # ADIOCIONAR LIVROS / ADICIONAR VALIDACAO PARA O CARTAO DE CRIEDITO / TESTAR VALID DO CADASTRO
 end 

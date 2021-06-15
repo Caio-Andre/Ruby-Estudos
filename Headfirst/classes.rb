@@ -71,26 +71,31 @@ class Cliente
     while true
       print "INFORME O SEU NOME COMPLETO: "
       nome = gets.chomp.strip.upcase
-      print "INFORME O DIA DO SEU NASCIMENTO: "
-      dia_nascimento = gets.chomp.strip
-      print "INFORME O MES DO SEU NASCIMENTO: "
-      mes_nascimento = gets.chomp.strip
-      print "INFORME O ANO DO SEU NASCIMENTO: "
-      ano_nascimento = gets.chomp.strip
-      print "INFORME O ESTADO: "
+      print "INFORME O DIA DO SEU NASCIMENTO (XX) : "
+      dia_nascimento = gets.chomp.strip.upcase
+      print "INFORME O MES DO SEU NASCIMENTO (XX) : "
+      mes_nascimento = gets.chomp.strip.upcase
+      print "INFORME O ANO DO SEU NASCIMENTO (XXXX) : "
+      ano_nascimento = gets.chomp.strip.upcase
+      print "INFORME O ESTADO (XX) : "
       estado = gets.chomp.strip.upcase
       print "INFORME A SUA CIDADE: "
       cidade = gets.chomp.strip.upcase
       print "INFORME O NÚMERO DA SUA RESIDÊNCIA: "
       numero = gets.chomp.strip
-      print "INFORME O SEU CEP: "
-      cep = gets.chomp.strip
-
+      print "INFORME O SEU CEP (SEM HÍFEN): "
+      cep = gets.chomp.strip.upcase
       print "\nINFORME O SEU E-MAIL PARA LOGIN: "
       e_mail = gets.chomp.strip.downcase
-
       print "\nINFORME O SUA SENHA PARA LOGIN: "
       senha = gets.chomp.strip.downcase
+
+      dados_validos = self.validar_cadastro_cliente(nome,dia_nascimento,mes_nascimento,ano_nascimento,estado,cidade,numero,cep,e_mail,senha)
+
+      if not dados_validos
+        puts "\n\n"
+        next
+      end
 
       puts("""NOME: [#{nome}]
 DATA DE NASCIMENTO: #{dia_nascimento}/#{mes_nascimento}/#{ano_nascimento}
@@ -107,6 +112,76 @@ E-MAIL: [#{e_mail}]""")
       puts "CADASTRO REALIZADO COM SUCESSO!"
       return self.carregar_dados_cliente(e_mail, senha)
     end
+  end 
+
+  # RECEBE OS DADOS CADASTRAIS DO CLIENTE E CHECA SE HÁ ALGUM INVALIDO
+  def self.validar_cadastro_cliente(nome,dia_nascimento,mes_nascimento,ano_nascimento,estado,cidade,numero,cep,e_mail,senha)
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
+    states = ['AC','AL','AP','AM','BA','CE','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','DF']
+    letters = ('A'..'Z').to_a
+    valido = true
+
+    numbers.each do |number|
+      if nome.include? number
+        puts "\n\033[31;1mNOME INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+    
+    if not states.include? estado
+      puts "\n\033[31;1mESTADO INVALIDO\033[m"
+      valido = false
+    end 
+    
+    letters.each do |letter|
+      if dia_nascimento.include? letter
+        puts "\n\033[31;1mDIA INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    letters.each do |letter|
+      if mes_nascimento.include? letter
+        puts "\n\033[31;1mMES INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+    
+    letters.each do |letter|
+      if ano_nascimento.include? letter
+        puts "\n\033[31;1mANO INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    if mes_nascimento.size != 2 || dia_nascimento.size != 2 || ano_nascimento.size != 4
+      puts  "\n\033[31;1mDIA E MES DEVEM TER [2] DIGITOS E ANO [4] DIGITOS\033[m"
+      valido = false
+    end 
+
+    if cep.size != 8
+      puts  "\n\033[31;1mCEP DEVE POSSUIR 8 DIGITOS \033[m"
+      valido = false
+    end 
+
+    letters.each do |letter|
+      if cep.include? letter
+        puts "\n\033[31;1mCEP INVALIDO\033[m"
+        valido = false
+        break
+      end 
+    end 
+
+    if not e_mail.include? "@"
+      puts "\n\033[31;1mE_MAIL INVALIDO\033[m"
+      valido = false
+    end 
+
+    return valido
   end 
 
   # LER O ARQUIVO TXT, COMPARA O LOGIN DO CLIENTE, ATUALIZA O ATRIBUTO DESCONTO DO OBJETO E ATUALIZA O ARQUIVO TXT COM O NOVO OBJETO
